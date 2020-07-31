@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击波纹按钮</title>
+</head>
+<style>
+    html,
+    body {
+        width: 100%;
+        height: 100vh;
+        background-color: black;
+    }
+    
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    .box {
+        width: 200px;
+        margin: 0px auto;
+        padding: 10px;
+    }
+    
+    a {
+        position: relative;
+        display: inline-block;
+        padding: 12px 36px;
+        margin: 10px 0;
+        color: #ffffff;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-size: 18px;
+        letter-spacing: 2px;
+        border-radius: 40px;
+        background-image: linear-gradient(90deg, #0162c8, #55e7fc);
+        cursor: pointer;
+        overflow: hidden;
+    }
+    
+    .a2 {
+        background-image: linear-gradient(90deg, #755bea, #ff72c0);
+    }
+    
+    span {
+        position: absolute;
+        background-color: #ffffff;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        border-radius: 50%;
+        /* width: 30px;
+        height: 30px; */
+        animation: animate 1s linear infinite;
+    }
+    
+    @keyframes animate {
+        0% {
+            width: 0px;
+            height: 0px;
+            opacity: 0.5;
+        }
+        100% {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+    }
+</style>
+
+<body>
+    <div class="box">
+        <a>
+           button
+        </a>
+    </div>
+    <div class="box">
+        <a class="a2">
+         button
+        </a>
+    </div>
+    <script>
+        const buttons = document.querySelectorAll("a");
+
+        buttons.forEach(btn => {
+
+            btn.addEventListener("click", function(e) {
+                let x = e.layerX;
+                let y = e.layerY;
+                let ripples = document.createElement('span');
+                ripples.style.left = x + 'px';
+                ripples.style.top = y + 'px';
+                this.appendChild(ripples);
+                setTimeout(() => {
+                    this.removeChild(ripples)
+                }, 1000)
+            })
+        });
+    </script>
+</body>
+
+</html>

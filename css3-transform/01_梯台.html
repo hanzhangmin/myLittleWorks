@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .boxs {
+        position: absolute;
+        top: 40%;
+        left: 40%;
+        width: 200px;
+        height: 200px;
+        /* background-color: #efefef; */
+        transform-style: preserve-3d;
+        -webkit-perspective: 200px;
+        perspective: 200px;
+        border: 1px solid #cccccc;
+        -webkit-animation: mydhua 5s ease infinite;
+        -moz-animation: mydhua 5s ease infinite;
+    }
+    
+    .boxs div {
+        color: white;
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        line-height: 200px;
+        text-align: center;
+    }
+    
+    .box1 {
+        perspective: 200px;
+        background-color: rgba(255, 0, 0, 0.61);
+        -webkit-transform: rotateX(90deg);
+        transform: rotateX(90deg);
+        transform-origin: bottom;
+    }
+    
+    .box2 {
+        perspective: 0px;
+        background-color: rgba(0, 60, 255, 0.432);
+        -webkit-transform: translateZ(-200px);
+        transform: translateZ(-200px);
+    }
+    
+    .box3 {
+        perspective: 0px;
+        background-color: rgba(0, 255, 128, 0.26);
+        -webkit-transform: rotateY(90deg);
+        transform: rotateY(90deg);
+        transform-origin: left;
+    }
+    
+    .box4 {
+        perspective: 0px;
+        background-color: rgba(251, 255, 0, 0.26);
+        -webkit-transform: rotateY(90deg) translateX(200px);
+        transform: rotateY(90deg) translateX(200px);
+        transform-origin: right;
+    }
+    
+    .box5 {
+        perspective: 0px;
+        background-color: rgba(234, 0, 255, 0.26);
+        -webkit-transform: rotateX(90deg) translateY(-200px);
+        transform: rotateX(90deg) translateY(-200px);
+        transform-origin: top;
+    }
+    
+    .box6 {
+        /* perspective: 0px; */
+        background-color: rgba(0, 247, 255, 0.26);
+        /* -webkit-transform: rotateX(90deg) translateY(-200px);
+        transform: rotateX(90deg) translateY(-200px);
+        transform-origin: top; */
+    }
+    
+    @-webkit-keyframes mydhua {
+        0% {
+            -webkit-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            -webkit-transform-origin: center center;
+        }
+        100% {
+            -webkit-transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+            -webkit-transform-origin: center center;
+        }
+    }
+    
+    @-moz-keyframes mydhua {
+        0% {
+            -moz-transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+            -webkit-transform-origin: center center;
+        }
+        100% {
+            -moz-transform: rotateX(180deg) rotateY(180deg) rotateZ(180deg);
+            -webkit-transform-origin: center center;
+        }
+    }
+</style>
+
+<body>
+    <div class="boxs">
+        <div class="box1">box1</div>
+        <div class="box2">box2</div>
+        <div class="box3">box3</div>
+        <div class="box4">box4</div>
+        <div class="box5">box5</div>
+        <div class="box6">box6</div>
+    </div>
+
+</body>
+
+</html>
