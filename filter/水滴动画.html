@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水滴动画</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    /* 重点，只有有颜色差的时候才会有对比度 ，即父子元素必须同时有背景颜色否则对比度不会有效*/
+    
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background-color: black;
+        flex-direction: column;
+        filter: contrast(30);
+    }
+    
+    .drop,
+    .collection {
+        width: 100px;
+        height: 100px;
+        background-color: #ffffff;
+        border-radius: 50%;
+        position: absolute;
+        filter: blur(20px);
+    }
+    
+    .collection {
+        animation: collection 2.5s linear infinite;
+    }
+    
+    .drop {
+        opacity: 0;
+        animation: drop 2.5s ease-in infinite;
+    }
+    
+    .drop:nth-child(2) {
+        /* transform: translateY(-80px); */
+        animation-delay: 0.5s;
+    }
+    
+    .drop:nth-child(3) {
+        /* transform: translateY(-80px); */
+        animation-delay: 0.9s;
+    }
+    
+    .drop:nth-child(4) {
+        /* transform: translateY(-80px); */
+        animation-delay: 1.2s;
+    }
+    
+    .drop:nth-child(5) {
+        /* transform: translateY(-80px); */
+        animation-delay: 1.7s;
+    }
+    
+    .drop:nth-child(6) {
+        /* transform: translateY(-80px); */
+        animation-delay: 2.2s;
+    }
+    
+    span {
+        position: absolute;
+        font-size: 30px;
+    }
+    /* 水滴低落动画 */
+    
+    @keyframes drop {
+        0% {
+            transform: scale(0.7) translateY(-600%);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(0.4) translateY(-80%);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(0.3) translateY(0);
+        }
+    }
+    /* 收集水滴的动画 */
+    
+    @keyframes collection {
+        0% {
+            transform: scale(1) rotate(0deg);
+        }
+        50% {
+            transform: scale(1.2) rotate(180deg);
+            width: 90px;
+            border-top-right-radius: 40%;
+            border-bottom-right-radius: 45%;
+        }
+        100% {
+            transform: scale(1) rotate(0deg);
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="drop">
+        </div>
+        <div class="drop">
+        </div>
+        <div class="drop">
+        </div>
+        <div class="drop">
+        </div>
+        <div class="drop">
+        </div>
+        <div class="drop">
+        </div>
+        <div class="collection">
+
+        </div>
+        <span>60%</span>
+    </div>
+</body>
+
+</html>
