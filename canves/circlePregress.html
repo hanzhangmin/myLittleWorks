@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>环形进度条</title>
+</head>
+<style>
+
+</style>
+
+<body>
+    <canvas id="mycanves" width="200" height="200"></canvas>
+</body>
+<script>
+    let mycanves = document.getElementById("mycanves");
+    let ctx = mycanves.getContext("2d");
+    // redius 进度条半径
+    // width 进度条宽度
+    // fillcolor 进度条填充色
+    // progress 进度
+    function CircleProgress(redius, width, fillcolor, progress) {
+        this.redius = redius;
+        this.width = width;
+        this.fillcolor = fillcolor;
+        this.progress = progress;
+    }
+    CircleProgress.prototype.draw = function(ctx) {
+        // this.drawcircle(ctx, "#f6f6f6", 100)
+        let that = this;
+        let tool = 0;
+
+        function drawCricle(fillcolor, progress) {
+            ctx.beginPath();
+            ctx.moveTo(100, 100);
+            ctx.lineWidth = that.width;
+            ctx.lineCap = "round";
+            ctx.strokeStyle = fillcolor;
+            ctx.beginPath();
+            ctx.arc(100, 100, this.redius, 1.5 * Math.PI, (progress / 100) * 2 * Math.PI - 0.5 * Math.PI);
+            ctx.stroke();
+        }
+
+        function animate() {
+            requestAnimationFrame(function() {
+                tool = tool + 1;
+                ctx.beginPath();
+                ctx.lineWidth = that.width;
+                ctx.lineCap = "round";
+                ctx.strokeStyle = that.fillcolor;
+                ctx.arc(100, 100, that.redius, 1.5 * Math.PI, (tool / 100) * 2 * Math.PI - 0.5 * Math.PI);
+                ctx.stroke();
+                if (tool < that.progress) {
+                    animate();
+                }
+            });
+        }
+
+        ctx.lineWidth = this.width;
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "#f6f6f6";
+        ctx.beginPath();
+        ctx.arc(100, 100, this.redius, 0, 2 * Math.PI);
+        ctx.stroke();
+        animate();
+    }
+    var cp = new CircleProgress(50, 10, "darkturquoise", 90);
+    cp.draw(ctx);
+</script>
+<style>
+
+</style>
+
+</html>

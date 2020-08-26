@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hover填充效果</title>
+</head>
+<style>
+    body,
+    html {
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
+        margin: 0;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .hoverfill {
+        color: #222222;
+        text-transform: uppercase;
+        font-size: 40px;
+        height: 54px;
+        line-height: 60px;
+        font-weight: 600;
+        cursor: pointer;
+        overflow: hidden;
+    }
+    
+    .hoverfill ::before {
+        position: absolute;
+        display: block;
+        content: "hover 填充效果";
+        color: #5b8cf5;
+        text-transform: uppercase;
+        font-size: 40px;
+        font-weight: 600;
+        line-height: 60px;
+        border-bottom: 4px solid #5b8cf5;
+        transition: all 0.5s ease-in-out;
+        height: 0px;
+        overflow: hidden;
+    }
+    
+    .hoverfill:hover ::before {
+        height: 60px;
+    }
+</style>
+
+<body>
+    <div class="hoverfill">
+        <span> hover 填充效果</span>
+    </div>
+</body>
+
+</html>
