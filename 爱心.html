@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>爱心</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    body {
+        position: absolute;
+        display: flex;
+        flex-wrap: wrap;
+        top: 0px;
+        transform: translateY(-50%);
+        height: 100vh;
+        overflow: hidden;
+    }
+    
+    .love-box {
+        display: flex;
+        width: 200px;
+        opacity: 0;
+    }
+    
+    .love-box:nth-child(4n) {
+        margin-top: 100px;
+        transform: scale(0.1);
+        animation: tripple1 5s linear infinite;
+        animation-delay: 1s;
+    }
+    
+    .love-box:nth-child(4n +1) {
+        transform: scale(0.2);
+        animation: tripple2 5s linear infinite;
+        animation-delay: 2s;
+    }
+    
+    .love-box:nth-child(4n+2) {
+        transform: scale(0.3);
+        animation: tripple3 5s linear infinite;
+        animation-delay: 3s;
+    }
+    
+    .love-box:nth-child(4n+3) {
+        transform: scale(0.2);
+        animation: tripple2 5s linear infinite;
+        animation-delay: 4s;
+    }
+    /*     
+    .love-box:nth-child(5n+4) {
+        transform: scale(0.1);
+        animation: tripple1 5s linear infinite;
+        animation-delay: 0.3s;
+    } */
+    
+    .love-box::after,
+    .love-box::before {
+        content: "";
+        position: relative;
+        width: 100px;
+        height: 160px;
+        background-color: red;
+    }
+    
+    .love-box::after {
+        border-radius: 50px 50px 0px 0px;
+        transform: rotate(45deg);
+    }
+    
+    .love-box::before {
+        border-radius: 50px 50px 0px 0px;
+        transform: translateX(58px) rotate(-45deg);
+    }
+    
+    @keyframes tripple1 {
+        0% {
+            transform: translateY(0px) translateX(50px) scale(0.1);
+            opacity: 0.9;
+        }
+        10% {
+            transform: translateY(10vh) translateX(0px) scale(0.1);
+            ;
+        }
+        20% {
+            transform: translateY(20vh) translateX(-200px) scale(0.1);
+            ;
+        }
+        30% {
+            transform: translateY(30vh) translateX(0px) scale(0.1);
+        }
+        40% {
+            transform: translateY(40vh) translateX(100px) scale(0.1);
+        }
+        50% {
+            transform: translateY(50vh) translateX(0px) scale(0.1);
+        }
+        60% {
+            transform: translateY(60vh) translateX(-100px) scale(0.1);
+            ;
+        }
+        70% {
+            transform: translateY(70vh) translateX(0px) scale(0.1);
+            ;
+        }
+        80% {
+            transform: translateY(80vh) translateX(50px) scale(0.1);
+            ;
+        }
+        90% {
+            transform: translateY(90vh) translateX(0px) scale(0.1);
+            ;
+        }
+        100% {
+            transform: translateY(100vh) translateX(-150px) scale(0.1);
+            ;
+        }
+    }
+    
+    @keyframes tripple2 {
+        0% {
+            transform: translateY(0px) translateX(100px) scale(0.2);
+            opacity: 0.9;
+        }
+        10% {
+            transform: translateY(10vh) translateX(0px) scale(0.2);
+            ;
+        }
+        20% {
+            transform: translateY(20vh) translateX(-100px) scale(0.2);
+            ;
+        }
+        30% {
+            transform: translateY(30vh) translateX(0px) scale(0.2);
+            ;
+        }
+        40% {
+            transform: translateY(40vh) translateX(100px) scale(0.2);
+            ;
+        }
+        50% {
+            transform: translateY(50vh) translateX(0px) scale(0.2);
+            ;
+        }
+        60% {
+            transform: translateY(60vh) translateX(-100px) scale(0.2);
+            ;
+        }
+        70% {
+            transform: translateY(70vh) translateX(0px) scale(0.2);
+            ;
+        }
+        80% {
+            transform: translateY(80vh) translateX(100px) scale(0.2);
+            ;
+        }
+        90% {
+            transform: translateY(90vh) translateX(0px) scale(0.2);
+            ;
+        }
+        100% {
+            transform: translateY(100vh) translateX(-100px) scale(0.2);
+            ;
+        }
+    }
+    
+    @keyframes tripple3 {
+        0% {
+            transform: translateY(0px) translateX(60px) scale(0.3);
+            opacity: 0.9;
+        }
+        10% {
+            transform: translateY(10vh) translateX(0px) scale(0.3);
+            ;
+        }
+        20% {
+            transform: translateY(20vh) translateX(-100px) scale(0.3);
+            ;
+        }
+        30% {
+            transform: translateY(30vh) translateX(0px) scale(0.3);
+            ;
+        }
+        40% {
+            transform: translateY(40vh) translateX(70px) scale(0.3);
+            ;
+        }
+        50% {
+            transform: translateY(50vh) translateX(0px) scale(0.3);
+            ;
+        }
+        60% {
+            transform: translateY(60vh) translateX(-80px) scale(0.3);
+            ;
+        }
+        70% {
+            transform: translateY(70vh) translateX(0px) scale(0.3);
+            ;
+        }
+        80% {
+            transform: translateY(80vh) translateX(130px) scale(0.3);
+            ;
+        }
+        90% {
+            transform: translateY(90vh) translateX(0px) scale(0.3);
+            ;
+        }
+        100% {
+            transform: translateY(100vh) translateX(-100px) scale(0.3);
+            ;
+        }
+    }
+</style>
+
+<body>
+</body>
+<!-- 
+  前端标准和性能 
+  定位元素会造成性能影响
+  解决方式，不要用定位（定位是css2的代码）
+-->
+<!--
+  1. 解决效率，减少dom数，使用伪元素，不占空间，优化性能，增高效率
+  2.高内聚，低耦合
+
+ -->
+<script>
+    // let body = document.getElementsByTagName("body");
+    function createLove(n) {
+        for (let index = 0; index < n; index++) {
+            let love = document.createElement("div");
+            love.className = "love-box";
+            document.body.appendChild(love);
+        }
+    }
+    createLove(100);
+    setTimeout(() => {
+
+    }, 1000)
+</script>
+
+</html>

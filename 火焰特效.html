@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>火焰特效</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        background-color: black;
+        height: 100vh;
+    }
+    
+    .fire {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%) scaleX(.4);
+        border: 200px solid #000;
+        border-bottom: 200px solid #b5932f;
+        border-radius: 40%;
+        filter: blur(20px) contrast(15);
+    }
+    
+    .dot {
+        position: absolute;
+        width: 30px;
+        height: 40px;
+        border-radius: 50%;
+        background: #000;
+        left: 0px;
+        bottom: -300px;
+        animation: move 1s ease-in infinite;
+    }
+    
+    .dot:nth-child(1) {
+        left: -120px;
+        animation-delay: 0.1s;
+    }
+    
+    .dot:nth-child(2) {
+        left: -90px;
+        bottom: -100px;
+        animation-delay: 0.9s;
+    }
+    
+    .dot:nth-child(3) {
+        left: -60px;
+        animation-delay: 0.2s;
+    }
+    
+    .dot:nth-child(4) {
+        left: -40px;
+        bottom: -200px;
+        animation-delay: 0.8s;
+    }
+    
+    .dot:nth-child(5) {
+        left: -20px;
+        animation-delay: 0.7s;
+    }
+    
+    .dot:nth-child(7) {
+        left: 20px;
+        bottom: -80px;
+        animation-delay: 0.1s;
+    }
+    
+    .dot:nth-child(8) {
+        left: 40px;
+        animation-delay: 0.3s;
+    }
+    
+    .dot:nth-child(9) {
+        left: 60px;
+        animation-delay: 0.5s;
+    }
+    
+    .dot:nth-child(10) {
+        left: 80px;
+        animation-delay: 0.8s;
+    }
+    
+    .dot:nth-child(11) {
+        left: 100px;
+        animation-delay: 0.4s;
+    }
+    
+    @keyframes move {
+        100% {
+            transform: translateY(-200px);
+        }
+    }
+</style>
+
+<body>
+    <div class="fire">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</body>
+<script>
+    // let fire = document.getElementsByClassName("fire")[0];
+    // (function() {
+
+    // })();
+</script>
+
+</html>
