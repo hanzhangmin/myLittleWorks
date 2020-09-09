@@ -34,5 +34,21 @@
     <div class="font1">字体样式01</div>
     <div class="font2">字体样式01</div>
 </body>
+<script>
+    function outer() {
+        var result = new Array();
+        for (var i = 0; i < 2; i++) {
+            result[i] = (function(sum) {
+                return function() {
+                    return sum
+                }
+            })(i);
+        }
+        return result;
+    }
+    var fn = outer();
+    console.log(fn[0]()); //result：0
+    console.log(fn[1]()); //result：1
+</script>
 
 </html>

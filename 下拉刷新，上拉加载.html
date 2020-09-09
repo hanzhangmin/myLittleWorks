@@ -6,10 +6,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>下拉刷新下拉加载</title>
 </head>
+<style>
+    * {
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    ul {
+        text-decoration: none;
+        list-style: none;
+        line-height: 46px;
+        /* padding-left: 0px; */
+    }
+    
+    li {
+        border-bottom: 1px solid #cccccc;
+    }
+    
+    #wrapper {
+        /* transition: all;
+        top: 12px; */
+    }
+    
+    .wrapper {
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+    }
+    
+    .wrapper-downwrap {
+        position: relative;
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        text-align: center;
+    }
+    
+    .downwarp-content {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        min-height: 30px;
+        padding: 10px 0;
+    }
+    
+    .downwarp-content .downwarp-progress {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1px solid gray;
+        border-bottom-color: transparent;
+        vertical-align: middle;
+    }
+    
+    .downwarp-content .downwarp-tip {
+        display: inline-block;
+        font-size: 12px;
+        color: gray;
+        vertical-align: middle;
+    }
+    
+    .wrapper-downwarp-reset {
+        -webkit-transition: height 300ms;
+        transition: height 300ms;
+    }
+    
+    .wrapper-upwarp {
+        min-height: 30px;
+        padding: 15px 0;
+        text-align: center;
+        visibility: hidden;
+    }
+    
+    .wrapper-upwarp .upwarp-progress {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 1px solid gray;
+        border-bottom-color: transparent;
+        vertical-align: middle;
+        /* animation: name duration timing-function delay iteration-count direction fill-mode; */
+    }
+    
+    .wrapper-upwarp .upwarp-tip {
+        display: inline-block;
+        font-size: 12px;
+        color: gray;
+        vertical-align: middle;
+    }
+    
+    .change {
+        animation: change 0.6s ease-in infinite;
+    }
+    
+    @keyframes change {
+        0% {
+            transform: rotateZ(0deg);
+        }
+        100% {
+            transform: rotateZ(360deg);
+        }
+    }
+</style>
 
 <body>
-    <div id="wrapper">
-        <ul>
+    <div id="wrapper" class="wrapper">
+        <div class="wrapper-downwrap">
+            <div class="downwarp-content">
+                <p class="downwarp-progress"></p>
+                <p class="downwarp-tip">加载中。。。。。。</p>
+            </div>
+        </div>
+        <ul id="ul">
             <li>row 11</li>
             <li>row 10</li>
             <li>row 9</li>
@@ -22,7 +133,137 @@
             <li>row 2</li>
             <li>row 1</li>
         </ul>
+        <div class="wrapper-upwarp">
+            <p class="upwarp-progress"></p>
+            <p class="upwarp-tip">加载中。。。。。。</p>
+        </div>
     </div>
 </body>
+<script>
+    let ul = document.getElementById('ul'); // 获取ul列表
+    let div = document.getElementById('wrapper') // 获取包裹ul列表的div(css:  overflow:scroll;)
+    let wrapperDownwrap = document.getElementsByClassName("wrapper-downwrap")[0];
+    let downwarpProgress = document.getElementsByClassName("downwarp-progress")[0];
+    let downwarpTip = document.getElementsByClassName("downwarp-tip")[0];
+    let wrapperUpwarp = document.getElementsByClassName("wrapper-upwarp")[0];
+    let upwarpProgress = document.getElementsByClassName("upwarp-progress")[0];
+    let upwarpTip = document.getElementsByClassName("upwarp-tip")[0];
+    let num = 11; // 要添加的li文本，可自定义
+    let isLoad = false; // 节流阀辅助变量
+    let startTop = 0,
+        endTop = 0,
+        change = 0;
+    let startScroll = getScrollHeight() - getScrollTop() - getClientHeight();
+
+    function addLi(dom) {
+        let fragment = document.createDocumentFragment();
+        for (let i = 0; i < 10; i++) {
+            let li = document.createElement('li');
+            li.className = 'li';
+            li.innerHTML = num++;
+            fragment.appendChild(li); // 用DocumentFragment提高渲染速度
+        }
+        dom.appendChild(fragment);
+    }
+    // 上拉加载
+
+    div.addEventListener("touchstart", function(e) {
+        // console.log(e);
+        // return {
+        //     x: e.touches ? e.touches[0].pageX : e.clientX,
+        //     y: e.touches ? e.touches[0].pageY : e.clientY
+        // }
+        startTop = e.touches[0].pageY;
+    })
+    div.addEventListener("touchmove", function(e) {
+        endTop = e.touches[0].pageY;
+        change = endTop - startTop;
+        if (change > 0) {
+            downwrap(change);
+        } else {
+            upwrap();
+        }
+
+    })
+    div.addEventListener("touchend", function() {
+        wrapperDownwrap.style.height = "0px";
+        appendLi();
+    })
+
+    function downwrap(change) {
+        downwarpTip.innerHTML = "释放刷新";
+        if (change < 300) {
+            wrapperDownwrap.style.height = change + "px";
+        }
+        downwarpProgress.style.transform = `rotate(${change/300*360}deg)`;
+    }
+
+    function upwrap() {
+        wrapperUpwarp.style.visibility = 'visible';
+        upwarpProgress.classList.add("change");
+    }
+
+    function appendLi() {
+        let fragment = document.createDocumentFragment();
+        for (let i = 0; i < 10; i++) {
+            let li = document.createElement('li');
+            li.className = 'li';
+            li.innerHTML = num++;
+            fragment.appendChild(li); // 用DocumentFragment提高渲染速度
+        }
+        ul.appendChild(fragment);
+        wrapperUpwarp.style.visibility = 'hidden';
+    }
+    // 滚动条距离浏览器顶部的高度 = 窗口滚动条高度；
+
+    // 滚动条距离浏览器底部的高度 = 文档（ 页面） 内容实际高度 - 滚动条距离浏览器顶部的高度 - 窗口可视范围的高度；
+    // 获取窗口可视范围的高度
+    function getClientHeight() {
+        var clientHeight = 0;
+        if (document.body.clientHeight && document.documentElement.clientHeight) {
+            var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+        } else {
+            var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+        }
+        return clientHeight;
+    }
+    // 获取窗口滚动条高度
+    function getScrollTop() {
+        var scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop;
+        } else if (document.body) {
+            scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+    }
+    // 获取文档内容实际高度
+    function getScrollHeight() {
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+    }
+
+    // console.log();
+
+    window.addEventListener("scroll", function() {
+        if (getScrollHeight() - getScrollTop() - getClientHeight() <= 0) {
+            console.log(1);
+            wrapperUpwarp.style.visibility = 'visible';
+            upwarpProgress.classList.add("change");
+            setTimeout(appendLi, 1000);
+        }
+        // if (getScrollHeight() - getScrollTop() - getClientHeight() === startScroll) {
+        //     wrapperUpwarp.style.visibility = 'visible';
+        //     upwarpTip.innerHTML = "已显示全部信息。"
+        // }
+    })
+    window.addEventListener("mousewheel", function() {
+        if (getScrollHeight() - getScrollTop() - getClientHeight() === startScroll) {
+            wrapperUpwarp.style.visibility = 'visible';
+            upwarpProgress.classList.add("change");
+            setTimeout(appendLi, 1000);
+        }
+
+    })
+</script>
 
 </html>
