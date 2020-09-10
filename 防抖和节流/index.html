@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>防抖和节流</title>
+</head>
+<style>
+    #div {
+        height: 200px;
+        background-color: black;
+        color: white;
+        text-align: center;
+        line-height: 200px;
+    }
+</style>
+
+<body>
+    <div id="div"></div>
+</body>
+<script src="./myDebounce.js"></script>
+<script src="./myThrottle.js"></script>
+<script>
+    let div = document.querySelector("div");
+    let count = 0;
+
+    function doSomething(e) {
+        // console.log(this);
+        div.innerHTML = count++;
+    }
+    div.onmousemove = throttle(doSomething, 2000);
+    // div.onmousemove = debounce(doSomething, 300);
+</script>
+
+</html>
