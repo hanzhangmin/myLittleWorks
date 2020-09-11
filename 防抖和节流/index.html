@@ -29,7 +29,10 @@
         // console.log(this);
         div.innerHTML = count++;
     }
-    div.onmousemove = throttle(doSomething, 2000);
+    div.onmousemove = throttle(doSomething, 2000, {
+        enter: true,
+        leaving: false
+    });
     // div.onmousemove = debounce(doSomething, 300);
 </script>
 
