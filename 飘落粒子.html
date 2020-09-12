@@ -81,19 +81,40 @@
     </div>
 </body>
 <script>
-    document.onload = function() {
+    (function() {
+        let bg = document.getElementById("bg");
+        let str = "";
+        for (let i = 0; i < 100; i++) {
+            let size = Math.random() * 30;
+            let rgba1 = `rgba(${Math.random()*255},${Math.random()*255},${Math.random()*255},${Math.random()}`;
+            let rgba2 = `rgba(${Math.random()*255},${Math.random()*255},${Math.random()*255},${Math.random()}`;
+            str += `<div class='item' style='height:${size}px;width:${size}px;top:${Math.random()*100}vh;left:${Math.random()*100}vw;background:${rgba1});box-shadow:0 0 ${Math.random()*50}px ${rgba2}'></div>`
+        }
+        bg.innerHTML = str;
 
+    })()
 
-    }
+    // createDocumentFragment文档碎片的用法
+    // (function() {
     let bg = document.getElementById("bg");
-    str = "";
+    let fragment = document.createDocumentFragment();
     for (let i = 0; i < 100; i++) {
         let size = Math.random() * 30;
         let rgba1 = `rgba(${Math.random()*255},${Math.random()*255},${Math.random()*255},${Math.random()}`;
         let rgba2 = `rgba(${Math.random()*255},${Math.random()*255},${Math.random()*255},${Math.random()}`;
-        str += `<div class='item' style='height:${size}px;width:${size}px;top:${Math.random()*100}vh;left:${Math.random()*100}vw;background:${rgba1});box-shadow:0 0 ${Math.random()*50}px ${rgba2}'></div>`
+        let div = document.createElement('div');
+        div.className = 'item';
+        div.style.height = size + 'px';
+        div.style.width = size + 'px';
+        div.style.background = rgba1;
+        div.style.boxShadow = rgba2;
+        div.style.top = Math.random() * 100 + 'vh';
+        div.style.left = Math.random() * 100 + 'vw';
+        fragment.appendChild(div);
     }
-    bg.innerHTML = str;
+    bg.appendChild(fragment);
+    // })();
+    // alert(document.getElementsByClassName('item').length);
 </script>
 
 </html>
