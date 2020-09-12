@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片懒加载</title>
+</head>
+<!-- 
+
+  实现方案：
+  1.在img元素时，自定义一个属性data-src，用于存放图片的地址
+  2.获取屏幕可视区域的尺寸
+  3.获取元素到窗口边缘的距离
+  4.判断元素的时候在可视区域内，在则将data-src的值赋给src，否则，不执行操作
+
+  用到的api
+  1. IntersectionObserver 他提供了一种异步观察目标元素与顶级文档viewport的交集中的变化的方法
+  2. window.requestIdleCallback（）方法将在浏览器的空闲时段内调用的函数排队，这使开发者能够在主事件循环上执行后台和低优级的工作，
+    而不会影响延迟关键事件，如动画和输入响应
+
+  
+  细节：
+  1. 提前加载
+  2. 滚动时只处理未加载的图片
+  3. 函数节流
+
+
+  代码实现判断是否在可视区域的三种方式
+  * 屏幕可视区域的高度+滚动条滚动距离>元素到文档顶部的距离
+    document.documentElement.clientHeight+document.documentElement.scrollTop>Element.offsetTop
+  * 使用getBoundingClientRect()获取元素大小和位置
+  * IntersectionObserver自动观察元素是否在视口内
+ -->
+<style>
+    img {
+        height: 400px;
+        min-width: 200px;
+        width: auto;
+    }
+</style>
+
+<body>
+
+    <img class="item" data-src="../imgs/手风琴2.jpeg">
+
+
+    <img class="item" data-src="../imgs/竖图1.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图3.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图4.png">
+
+
+    <img class="item" data-src="../imgs/竖图5.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图6.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图6.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图7.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图9.jpeg">
+
+
+    <img class="item" data-src="../imgs/手风琴2.jpeg">
+
+
+    <img class="item" data-src="../imgs/竖图1.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图3.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图4.png">
+
+
+    <img class="item" data-src="../imgs/竖图5.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图6.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图6.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图7.jpg">
+
+
+    <img class="item" data-src="../imgs/竖图9.jpeg">
+
+</body>
+
+<script>
+    function throttle(func, wait, thearg) {
+        let old = 0;
+        return function() {
+
+            let now = new Date().valueOf();
+            if (now - old > wait) {
+                console.log(1);
+                old = now;
+                func(thearg);
+            }
+        }
+    }
+
+    var imgs = document.getElementsByTagName("img");
+
+    function gettop(element) {
+        var top = element.offsetTop;
+        while (element.offsetParent) {
+            element = element.offsetParent;
+            top += element.offsetTop
+        }
+        return top
+    }
+
+
+    function lazyLoad1(imgs) {
+        var vTop = document.documentElement.clientHeight + document.documentElement.scrollTop;
+        for (const img of imgs) {
+            if (gettop(img) < vTop && !img.src) {
+                img.src = img.dataset.src;
+            }
+        }
+    }
+
+    function isIn(element) {
+        var bound = element.getBoundingClientRect();
+        return bound.top <= window.innerHeight
+    }
+
+
+    function lazyLoad2() {
+        var vTop = document.documentElement.clientHeight + document.documentElement.scrollTop;
+        for (const img of imgs) {
+            if (isIn(img) && !img.src) {
+                img.src = img.dataset.src;
+            }
+        }
+    }
+
+    var observer = new IntersectionObserver(
+        function(changes) {
+            changes.forEach(function(change) {
+                // console.log(change.intersectionRatio);
+                var container = change.target;
+                if (change.intersectionRatio > 0 && !container.src) {
+
+                    // console.log(container);
+                    container.src = container.dataset.src;
+                }
+            });
+        }
+    );
+    Array.from(imgs).forEach(img => {
+        observer.observe(img);
+    })
+
+
+    // lazyLoad1(imgs);
+    // window.onscroll = throttle(lazyLoad1, 300, imgs);
+</script>
+
+</html>

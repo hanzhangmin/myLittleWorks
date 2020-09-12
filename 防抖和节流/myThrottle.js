@@ -57,8 +57,10 @@ function throttle2(func, wait) {
 function throttle(func, wait, options) {
     let old = 0,
         context, args, timeout;
-    if (!options) options = null;
-    console.log(options);
+    if (!options) options = {
+        enter: true,
+        leaving: true
+    };
     return function() {
         context = this;
         args = arguments;
