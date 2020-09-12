@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>飘落粒子特效</title>
+</head>
+<style>
+    html,
+    body {
+        overflow: hidden;
+        padding: 0px;
+        margin: 0px;
+    }
+    
+    #bg {
+        height: 100vh;
+        width: auto;
+        overflow: hidden;
+        background: radial-gradient(100% 100% at center center, #021, #000);
+    }
+    
+    .item {
+        position: absolute;
+        border-radius: 50%;
+    }
+    
+    .item:nth-child(5n) {
+        animation: moveX 6s linear infinite;
+    }
+    
+    .item:nth-child(5n+3) {
+        animation: moveY 6s linear infinite;
+    }
+    
+    .item:nth-child(5n+4) {
+        animation: move 6s linear infinite;
+    }
+    
+    @keyframes moveX {
+        0% {
+            transform: translateX(0px);
+            opacity: 1;
+        }
+        50% {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0px);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes moveY {
+        0% {
+            transform: translateY(0px);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(400px);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes move {
+        0% {
+            transform: translate(0px, 0px);
+            opacity: 1;
+        }
+        100% {
+            transform: translate(400px, 600px);
+            opacity: 0;
+        }
+    }
+</style>
+
+<body>
+    <div id="bg">
+    </div>
+</body>
+<script>
+    document.onload = function() {
+
+
+    }
+    let bg = document.getElementById("bg");
+    str = "";
+    for (let i = 0; i < 100; i++) {
+        let size = Math.random() * 30;
+        let rgba1 = `rgba(${Math.random()*255},${Math.random()*255},${Math.random()*255},${Math.random()}`;
+        let rgba2 = `rgba(${Math.random()*255},${Math.random()*255},${Math.random()*255},${Math.random()}`;
+        str += `<div class='item' style='height:${size}px;width:${size}px;top:${Math.random()*100}vh;left:${Math.random()*100}vw;background:${rgba1});box-shadow:0 0 ${Math.random()*50}px ${rgba2}'></div>`
+    }
+    bg.innerHTML = str;
+</script>
+
+</html>
