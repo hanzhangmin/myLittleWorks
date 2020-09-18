@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拖拽</title>
+</head>
+<style>
+    #drag {
+        width: 100px;
+        height: 100px;
+        background-color: palevioletred;
+    }
+    
+    #drapbox {
+        border: 4px solid black;
+        box-sizing: content-box;
+        width: 100px;
+        height: 100px;
+        background-color: #f1f1f1;
+    }
+</style>
+
+<body>
+    <div id="drag" draggable="true"></div>
+    <div id="drapbox"></div>
+</body>
+<script>
+    let drag = document.getElementById('drag');
+    let drop = document.getElementById("drapbox");
+    // dragstart 在元素开始被拖动时触发
+    drag.addEventListener("dragstart", function(e) {
+            console.log(e.type);
+        })
+        // 在拖动操作完成时触发
+    drag.addEventListener("dragend", function(e) {
+            console.log(e.type);
+        })
+        // drag 在元素被拖动时触发
+    drag.addEventListener("drag", function(e) {
+            console.log(e.type);
+        })
+        // 被拖动元素进入到释放区所占据得屏幕空间时触发
+    drop.addEventListener("dragenter", function(e) {
+        console.log(e.type);
+        this.style.border = "4px solid red";
+    })
+    drop.addEventListener("dragover", function(e) {
+        e.preventDefault();
+        console.log(e.type);
+    })
+    drop.addEventListener("dragleave", function(e) {
+        console.log(e.type);
+        this.style.border = "4px solid black";
+    })
+    drop.addEventListener("drop", function(e) {
+        //   e.preventDefault();阻止了dragover与drop的默认事件才能触发drop
+        e.preventDefault();
+        console.log(e.type);
+        this.style.backgroundColor = "palevioletred";
+    })
+</script>
+
+</html>

@@ -140,6 +140,11 @@
     </div>
 </body>
 <script>
+    if (!document.getElementById('ul1')) {
+        throw new Error(`document.getElementById(ul1) is null!`);
+    }
+
+
     let ul = document.getElementById('ul'); // 获取ul列表
     let div = document.getElementById('wrapper') // 获取包裹ul列表的div(css:  overflow:scroll;)
     let wrapperDownwrap = document.getElementsByClassName("wrapper-downwrap")[0];
