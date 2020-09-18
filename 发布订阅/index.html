@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发布订阅</title>
+</head>
+
+<body>
+    <button id="submit">点击</button>
+</body>
+
+<script src="./index.js">
+</script>
+<script>
+    let pond = _Subscribe();
+    document.getElementById('submit').onclick = function() {
+        pond.fire("次");
+    }
+    pond.add(function(m) {
+        console.log(1 + m);
+    })
+    pond.add(function(m) {
+        console.log(2 + m);
+    })
+    pond.add(function(m) {
+        console.log(3 + m);
+    })
+    pond.add(false);
+    let fn1 = function() {
+        console.log("我是fn1哦！");
+    }
+    pond.add(fn1);
+    pond.add(fn1);
+</script>
+
+</html>
