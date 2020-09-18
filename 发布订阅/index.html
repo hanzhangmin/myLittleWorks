@@ -8,7 +8,10 @@
 </head>
 
 <body>
-    <button id="submit">点击</button>
+    <div>
+        <button id="submit">点击</button>
+    </div>
+
 </body>
 
 <script src="./index.js">
@@ -18,21 +21,26 @@
     document.getElementById('submit').onclick = function() {
         pond.fire("次");
     }
-    pond.add(function(m) {
+    let fn1 = function(m) {
         console.log(1 + m);
-    })
-    pond.add(function(m) {
+    }
+    let fn2 = function(m) {
         console.log(2 + m);
-    })
-    pond.add(function(m) {
+        pond.remove(fn1)
+    }
+    let fn3 = function(m) {
         console.log(3 + m);
-    })
-    pond.add(false);
-    let fn1 = function() {
+    }
+    let fn4 = function() {
         console.log("我是fn1哦！");
     }
-    pond.add(fn1);
-    pond.add(fn1);
+
+    pond.add(fn1)
+    pond.add(fn2)
+    pond.add(fn3)
+    pond.add(false);
+    pond.add(fn4);
+    pond.add(fn4);
 </script>
 
 </html>
