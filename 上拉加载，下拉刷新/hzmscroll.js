@@ -68,10 +68,12 @@
         this.wrapperDownwrap = wrapperDownwrap; //下拉刷新内容区
         this.downwarProgress = downwarProgress; //下拉刷新动画区
         this.downwarptip = downwarptip; //下拉刷新文本提示区
+        this.downwarptip.innerHTML = "下拉刷新";
 
         this.wrapperUpwarp = wrapperUpwarp; //上拉加载内容区
         this.upwarpProgress = upwarpProgress; //上拉加载动画区
         this.upwarpTip = upwarpTip; //上拉加载文本提示区
+        this.upwarpTip.innerHTML = "加载中。。。";
         console.log("初始化完成！");
         // this.scrollBody.addEventListener("mou");
     }
@@ -103,40 +105,36 @@
             }
             _this.downwarProgress.style.transform = `rotate(${change/300*360}deg)`;
         }
+
         let touchmoveEventThrottle = _this.myThrottle(touchmoveEvent, 60);
 
         function touchendEvent(e) {
             // console.log(e);
-            _this.wrapperDownwrap.style.height = "100px";
+            _this.wrapperDownwrap.style.height = "50px";
             // 执行下拉刷新的回调
             if (_this.upOp.callback) {
                 _this.downwarProgress.classList.add("change");
                 _this.upOp.callback();
-                _this.wrapperDownwrap.style.height = "0px";
+                setTimeout(function() {
+                    _this.wrapperDownwrap.style.height = "0px";
+                }, 1000)
+
             }
             _this.scrollBody.removeEventListener("mousemove", touchmoveEventThrottle)
             _this.scrollBody.removeEventListener("touchmove", touchmoveEventThrottle)
         }
-
         if (_this.user.isPC) {
             // pc端的处理
             if (_this.getScrollTop() <= 0) {
-
                 // 开始触摸，记录下触摸y坐标
                 _this.scrollBody.addEventListener("mousedown", touchstartEvent);
-
-                // 触摸过程中，时刻记录y位置
-                // _this.scrollBody.addEventListener("mousemove", touchmoveEventThrottle);
-
                 //  触摸事件结束事件
                 _this.scrollBody.addEventListener("mouseup", touchendEvent);
             }
         } else {
             if (_this.getScrollTop() <= 0) {
-
                 // 开始触摸，记录下触摸y坐标
                 _this.scrollBody.addEventListener("touchstart", touchstartEvent);
-
                 //  触摸事件结束事件
                 _this.scrollBody.addEventListener("touchend", touchendEvent);
             }
@@ -154,7 +152,7 @@
         let _this = this;
         let scrollEvent = function() {
             if (_this.getScrollBottom()) {
-                _this.upwarpProgress.style.visibility = 'visible';
+                _this.wrapperUpwarp.style.visibility = 'visible';
                 _this.upwarpProgress.classList.add("change");
             }
             // 执行下拉的回调

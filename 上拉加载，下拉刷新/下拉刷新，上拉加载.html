@@ -22,10 +22,21 @@
     
     li {
         border-bottom: 1px solid #cccccc;
+        padding: 0px 22px;
+    }
+    
+    header {
+        background-color: cornflowerblue;
+        height: 50px;
+        line-height: 50px;
+        padding: 0px 22px;
     }
 </style>
 
 <body>
+    <header>
+        <h1> 新闻列表</h1>
+    </header>
     <div id="wrapper">
         <!-- 列表所在数组集合 -->
         <ul id="ul">
@@ -37,14 +48,14 @@
 <script>
     // 下拉刷新的回调
     let downCallback = (function() {
-        let num = 0;
+        let num = 1;
         return function() {
             let dom = document.getElementById("ul");
             let fragment = document.createDocumentFragment();
             for (let i = 0; i < 20; i++) {
                 let li = document.createElement('li');
                 li.className = 'li';
-                li.innerHTML = num++;
+                li.innerHTML = `第${num++}条新闻`;
                 fragment.appendChild(li); // 用DocumentFragment提高渲染速度
             }
             dom.appendChild(fragment);
@@ -64,9 +75,7 @@
     function upCallback() {
         let dom = document.getElementById("ul");
         dom.innerHTML = "";
-        let xml = new XMLHttpRequest();
-        xml.open("https://www.apiopen.top/journalismApi");
-
+        downCallback();
     }
 
 
