@@ -21,7 +21,7 @@ function debounce(func, wait, immediate = false) {
                 timeout = setTimeout(function() {
                     // 绑定作用域,并将参数传递进去
                     // 由于call传递的是一个数组参数，这里适合用apply
-                    func.apply(context, args);
+                    result = func.apply(context, args);
                 }, wait)
             }
             return result

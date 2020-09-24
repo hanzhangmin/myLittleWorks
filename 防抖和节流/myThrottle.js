@@ -1,7 +1,7 @@
 // 实现节流有两种方式，时间戳和定时器
 // 时间戳 第一次立即执行 最后一次不执行，并且最后一次会在第二次触发事件时立即执行
 function throttle0(func, wait) {
-    let old = new Date().valueOf(),
+    let old = 0,
         context, args;
     return function() {
         let now = new Date().valueOf();
