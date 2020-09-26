@@ -68,6 +68,14 @@
         font-weight: 500;
         font-size: 20px;
         overflow: hidden;
+        border: none;
+        transition: all 0.3s linear;
+        background-color: transparent;
+    }
+    
+    .keyword:hover {
+        border: 1px solid lightskyblue;
+        background-color: lightskyblue;
     }
 </style>
 
@@ -108,14 +116,11 @@
 
             function getvalue(str) {
                 let newstr = str.trim();
-                console.log(newstr);
                 if (newstr.match(/^([\÷\×\+\=\-\^\.])/) || newstr.match(/([\÷\×\+\=\-\^\.]){2,}/g)) {
                     return new Error("不合法的输入！")
                 }
                 let nums = newstr.split(/[\÷\×\+\=\-\^]/g);
                 let ys = newstr.match(/[\÷\×\+\=\-\^]/g);
-                console.log(nums);
-                console.log(ys);
                 let zarr = [];
                 while (nums.length > 0 || ys.length > 0) {
                     if (nums.length > 0) {
@@ -137,25 +142,13 @@
                     }
                     ys.shift();
                 }
-                console.log(zarr);
-                let powerIndexs = [];
-                zarr.forEach((item, index) => {
-                    console.log(item, index);
-                    if (item === '^') {
-                        powerIndexs.push(index)
-                    }
-
-                })
                 powerIndex = zarr.indexOf("^");
                 while (powerIndex > 0) {
                     let a = parseFloat(zarr[powerIndex - 1]);
                     let b = parseFloat(zarr[powerIndex + 1]);
                     zarr.splice(powerIndex - 1, 3, power(a, b));
                     powerIndex = zarr.indexOf("^");
-                    console.log(zarr);
                 }
-                console.log(zarr);
-                // console.log(eval(zarr.join("")));
                 return eval(zarr.join(""));
             }
 
@@ -184,11 +177,6 @@
             }
         })();
 
-        // function removeKeydown() {
-        //     console.log(window.event.key);
-        //     e.returnValue = false
-
-        // }
         let textarea = document.getElementById("calculator-textarea");
         // h5禁止呼出键盘
         textarea.addEventListener("focus", function(e) {
@@ -202,7 +190,6 @@
                     textarea.value = "";
                     break;
                 case "DEL":
-                    console.log();
                     let arr = textarea.value.split("");
                     arr.pop();
                     textarea.value = arr.join('');

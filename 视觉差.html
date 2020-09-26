@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视觉差</title>
+    <!-- 实现视觉差效果有两个方式
+    1.利用js，监听页面的滚动事件，控制页面元素的滚动距离，但是这种方法比较消耗内存，性能不好，而且为了页面的流畅度，无法使用节流，不推荐使用js监听的方式实现滚动视觉差
+    2.利用css 3d透视的情况下，不同z坐标的滚动距离不相同
+    -->
+</head>
+<style>
+    * {
+        padding: 0px;
+        margin: 0px;
+    }
+    
+    .box {
+        height: 100vh;
+        perspective: 1px;
+        transform-style: preserve-3d;
+        overflow-y: scroll;
+        /*   overflow-y: scroll;重要元素，形成bfc，否则无法实现滚动效果 
+        perspective：重要属性，形成透视*/
+    }
+    
+    .imgs-box {
+        position: absolute;
+        width: 100%;
+        height: 150vh;
+        text-align: center;
+        background-image: url("./imgs//001.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        opacity: 0.7;
+        transform: translateZ(-1px) scale(2);
+        /*    transform: translateZ(-1px) scale(2); 
+        重要属性 ，设置滚动时视觉差比例 */
+    }
+    
+    .contain {
+        position: absolute;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.459);
+        padding: 100px;
+        margin-top: 20vh;
+        /* height: 150vh; */
+        font-size: 20px;
+    }
+</style>
+
+<body>
+    <div class="box">
+        <!-- 正常滚动区域 -->
+        <div class="imgs-box">
+        </div>
+        <!-- 视觉差滚动区域 -->
+        <div class="contain">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consequatur vero commodi, incidunt ut a sed. Cupiditate eaque inventore, repudiandae nihil magni quo dolores veritatis! Maiores, ab nam? Similique quidem repellat aut sit, assumenda et accusamus
+            vero, ab, sequi itaque ut culpa libero possimus alias delectus accusantium est. Explicabo, quibusdam commodi. Ab consequatur, accusantium adipisci consectetur molestiae tempora beatae modi totam natus corrupti, veniam, officia aliquid architecto
+            aceat libero molestias. Mollitia voluptate quia accusantium voluptatum doloribus earum placeat ullam illo temporibus consequuntur. Ipsa deserunt architecto aliquam doloribus eveniet voluptates culpa sequuntur nemo pariatur eos maiores ad ex
+            sequi hic ut animi, impedit eum debitis vel fugit voluptate! Eos quo voluptas aspernatur in iste maxime consequuntur molestiae fugiat doloribus veritatis ipsum ducimus nobis voluptatem atque animi, est rerum numquam sapiente error distinctio
+            nostrum dolor? Illo reprehenderit doloribus vero repellat incidunt vel repudiandae possimus reiciendis ducimus nisi autem repellendus commodi unde, libero ea? Eum incidunt illo repellendus cumque? Nam omnis officiis eos, ad laudantium magnam,
+            vero dolorem mollitia amet rem temporibus, inventore eaque et molestias enim velit incidunt facilis. Officia blanditiis ea saepe in totam praesentium fugit fugiat inventore rerum expedita ipsum natus dolor fuga quia nisi repudiandae a dignissimos
+            nulla, veniam reprehenderit.
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
