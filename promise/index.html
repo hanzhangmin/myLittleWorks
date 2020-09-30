@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPromise</title>
+</head>
+
+<body>
+    <script src="./index.js"></script>
+    <script>
+        // let myp = new MyPromise((resolve, reject) => {
+        //     resolve("p1");
+        // }).then(res => {
+        //     console.log(res);
+        //     return new MyPromise((resolve, reject) => {
+        //         resolve(res + 1)
+        //     })
+        // }, err => {
+        //     console.log(err);
+        // }).then(res => {
+        //     console.log(res);
+        // })
+
+        let p1 = new MyPromise((resolve, reject) => {
+            reject("p1");
+        });
+        let p2 = new MyPromise((resolve, reject) => {
+            reject("p2");
+        });
+        let p3 = new MyPromise((resolve, reject) => {
+            reject("p3 is error");
+        });
+        let p4 = new MyPromise((resolve, reject) => {
+            reject("p4");
+        });
+        MyPromise.race([p1, p2, p3, p4]).then(res => {
+            console.log(res);
+        }, err => {
+            console.log(err);
+        })
+    </script>
+</body>
+
+</html>
