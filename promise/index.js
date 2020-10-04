@@ -258,7 +258,5 @@ let MyPromise = (function() {
     }
 
     promise.prototype[Symbol.toStringTag] = "Promise";
-
-
     return promise
 })();

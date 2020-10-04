@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加载动画</title>
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    
+    #load {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 1px;
+        height: 1px;
+        background-color: cyan;
+        border-radius: 50%;
+        box-shadow: 0px 0px 1px 1px cyan, 25px 6.7px 1px 2px cyan, 43.3px 25px 1px 3px cyan, 50px 50px 2px 4px cyan, 43.3px 75px 3px 5px cyan, 25px 93.3px 4px 6px cyan, 0px 100px 5px 7px cyan, -25px 93.3px 6px 8px cyan, -43.3px 75px 6px 9px cyan, -50px 50px 6px 10px cyan;
+        animation: rotate linear 1s infinite;
+        transform-origin: 0px 50px 0px;
+        transition: all 1s linear;
+    }
+    
+    @keyframes rotate {
+        0% {
+            transform: rotateZ(0deg);
+        }
+        100% {
+            transform: rotateZ(360deg);
+        }
+    }
+</style>
+
+<body>
+    <div id="load">
+
+    </div>
+
+
+</body>
+
+</html>
