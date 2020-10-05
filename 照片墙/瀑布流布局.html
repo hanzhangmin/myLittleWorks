@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>瀑布流布局</title>
+</head>
+<style>
+    * {
+        padding: 0px;
+        margin: 0px;
+    }
+    
+    #main {
+        position: relative;
+        /* display: flex; */
+    }
+    
+    ul {
+        display: inline-block;
+        width: 20%;
+        float: left;
+        height: auto;
+    }
+    
+    ul li {
+        list-style: none;
+        margin: 5px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    img {
+        position: relative;
+        width: 100%;
+        height: auto;
+        transition: all 0.3s linear;
+    }
+    
+    img:hover {
+        transform: scale(1.1);
+        cursor: pointer;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <ul id="photo1">
+            <!-- <li>
+                <img src="../imgs/001.jpg" alt="" onload="imgreload()">
+            </li> -->
+        </ul>
+        <ul id="photo2">
+            <!-- <li>
+                <img src="../imgs/desk_005.jpg" alt="">
+            </li> -->
+        </ul>
+        <ul id="photo3">
+            <!-- <li>
+                <img src="../imgs/photo10.jpg" alt="">
+            </li> -->
+        </ul>
+        <ul id="photo4">
+            <!-- <li>
+                <img src="../imgs/photo13.jpeg" alt="" srcset="">
+            </li> -->
+        </ul>
+        <ul id="photo5">
+            <!-- <li>
+                <img src="../imgs/photo14.jpg" alt="">
+            </li> -->
+        </ul>
+    </div>
+    <script>
+        let imgs = ['../imgs/001.jpg', '../imgs/desk_005.jpg', '../imgs/photo10.jpg',
+            '../imgs/photo2.jpg', '../imgs/photo3.jpeg', '../imgs/photo4.jpg', '../imgs/photo5.jpeg', '../imgs/photo6.jpeg',
+            '../imgs/photo7.jpg', '../imgs/photo8.png', '../imgs/photo9.jpg', '../imgs/thumb-1920-430485.jpg',
+            '../imgs/手风琴2.jpeg', '../imgs/竖图1.jpg', '../imgs/竖图3.jpg', '../imgs/竖图4.png', '../imgs/竖图5.jpg',
+            '../imgs/竖图6.jpg', '../imgs/竖图7.jpg', '../imgs/photo13.jpeg', '../imgs/photo14.jpg', '../imgs/竖图9.jpeg'
+        ]
+
+        let ulsLength = [0, 0, 0, 0, 0];
+
+
+        // 得到数组中最小值的下标
+        function getMin(arr) {
+            let minIndex = 0,
+                minLength = arr[0];
+            arr.forEach((len, index) => {
+                if (len < minLength) {
+                    minIndex = index;
+                    minLength = len;
+                }
+            });
+            return minIndex
+        }
+
+        // 防抖函数
+        let debance = function(fn, wait) {
+            let timer;
+            return function() {
+                if (timer) {
+                    clearTimeout(timer);
+                } else {
+                    timer = setTimeout(fn, wait);
+                }
+            }
+        }
+
+
+        let getScrollTop = function() {
+            var scrollTop = 0;
+            if (document.documentElement && document.documentElement.scrollTop) {
+                scrollTop = document.documentElement.scrollTop;
+            } else if (document.body) {
+                scrollTop = document.body.scrollTop;
+            }
+            return scrollTop;
+        }
+
+
+        // 获取当前可视范围的高度
+        let getClientHeight = function() {
+            var clientHeight = 0;
+            if (document.body.clientHeight && document.documentElement.clientHeight) {
+                clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
+            } else {
+                clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
+            }
+            return clientHeight;
+        }
+
+        // 获取文档完整高度
+        let getScrollHeight = function() {
+            if (document.body) {
+                return Math.max(document.body.scrollHeight, document.body.clientHeight);
+            } else {
+                return Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight);
+            }
+
+        }
+
+        // 获取滚动条是否到达滚动区底部
+        let getScrollBottom = function() {
+            return getScrollTop() + getClientHeight() === getScrollHeight() ? true : false
+        }
+
+
+        // 鼠标滚动时间监听函数
+        function scrollEventCallback() {
+            if (getScrollBottom()) {
+                let addul = getMin(ulsLength);
+                let adddom = null;
+                let img = parseInt(Math.random() * 22);
+                console.log(img);
+                switch (addul) {
+                    case 0:
+                        adddom = document.getElementById("photo1");
+                        break;
+                    case 1:
+                        adddom = document.getElementById("photo2");
+                        break;
+                    case 2:
+                        adddom = document.getElementById("photo3");
+                        break;
+                    case 3:
+                        adddom = document.getElementById("photo4");
+                        break;
+                    case 4:
+                        adddom = document.getElementById("photo5");
+                        break;
+                }
+            }
+        }
+
+        // 不知道为何 该函数监听不到了，所以今天只能使用定时器的方式添加图片，后序找到问题后解决的
+        window.addEventListener("scroll", debance(scrollEventCallback, 600));
+
+        setInterval(() => {
+            // console.log(ulsLength);
+            let addul = getMin(ulsLength);
+            console.log(addul);
+            let adddom = null;
+            let img = parseInt(Math.random() * 22);
+            img = imgs[img];
+
+            let li = document.createElement('li');
+            li.innerHTML = `<img src='${img}' onload='imgreload(${addul})'/>`;
+            switch (addul) {
+                case 0:
+                    adddom = document.getElementById("photo1");
+                    break;
+                case 1:
+                    adddom = document.getElementById("photo2");
+                    break;
+                case 2:
+                    adddom = document.getElementById("photo3");
+                    break;
+                case 3:
+                    adddom = document.getElementById("photo4");
+                    break;
+                case 4:
+                    adddom = document.getElementById("photo5");
+                    break;
+            }
+            adddom.appendChild(li);
+        }, 600);
+
+        // 当图片加载完成之后，要计算重新计算每一个ul的高度，以便得出下一个放置图片的位置
+        function imgreload(ulIndex) {
+            let domid = `photo${ulIndex+1}`;
+            ulsLength[ulIndex] = document.getElementById(domid).offsetHeight;
+        }
+    </script>
+</body>
+
+</html>
