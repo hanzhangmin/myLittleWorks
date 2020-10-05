@@ -22,16 +22,34 @@
         background-color: cyan;
         border-radius: 50%;
         box-shadow: 0px 0px 1px 1px cyan, 25px 6.7px 1px 2px cyan, 43.3px 25px 1px 3px cyan, 50px 50px 2px 4px cyan, 43.3px 75px 3px 5px cyan, 25px 93.3px 4px 6px cyan, 0px 100px 5px 7px cyan, -25px 93.3px 6px 8px cyan, -43.3px 75px 6px 9px cyan, -50px 50px 6px 10px cyan;
+        -o-animation: rotate linear 1s infinite;
+        -webkit-animation: rotate linear 1s infinite;
+        -moz-animation: rotate linear 1s infinite;
         animation: rotate linear 1s infinite;
+        -o-transform-origin: 0px 50px 0px;
+        -webkit-transform-origin: 0px 50px 0px;
+        -ms-transform-origin: 0px 50px 0px;
+        -moz-transform-origin: 0px 50px 0px;
         transform-origin: 0px 50px 0px;
+        -o-transition: all 1s linear;
+        -webkit-transition: all 1s linear;
+        -moz-transition: all 1s linear;
         transition: all 1s linear;
     }
     
     @keyframes rotate {
         0% {
+            -webkit-transform: rotateZ(0deg);
+            -ms-transform: rotateZ(0deg);
+            -o-transform: rotateZ(0deg);
+            -moz-transform: rotateZ(0deg);
             transform: rotateZ(0deg);
         }
         100% {
+            -webkit-transform: rotateZ(360deg);
+            -ms-transform: rotateZ(360deg);
+            -o-transform: rotateZ(360deg);
+            -moz-transform: rotateZ(360deg);
             transform: rotateZ(360deg);
         }
     }
