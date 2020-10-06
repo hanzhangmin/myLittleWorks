@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>瀑布流布局</title>
+    <link rel="stylesheet" href="../上拉加载，下拉刷新//hzmscroll.css">
 </head>
 <style>
     * {
@@ -15,6 +16,12 @@
     #main {
         position: relative;
         /* display: flex; */
+    }
+    
+    #main::after {
+        content: "";
+        display: block;
+        clear: both;
     }
     
     ul {
@@ -45,33 +52,37 @@
 </style>
 
 <body>
-    <div id="main">
-        <ul id="photo1">
-            <!-- <li>
-                <img src="../imgs/001.jpg" alt="" onload="imgreload()">
-            </li> -->
-        </ul>
-        <ul id="photo2">
-            <!-- <li>
-                <img src="../imgs/desk_005.jpg" alt="">
-            </li> -->
-        </ul>
-        <ul id="photo3">
-            <!-- <li>
-                <img src="../imgs/photo10.jpg" alt="">
-            </li> -->
-        </ul>
-        <ul id="photo4">
-            <!-- <li>
-                <img src="../imgs/photo13.jpeg" alt="" srcset="">
-            </li> -->
-        </ul>
-        <ul id="photo5">
-            <!-- <li>
-                <img src="../imgs/photo14.jpg" alt="">
-            </li> -->
-        </ul>
+    <div id="imgbody">
+        <div id="main">
+            <ul id="photo1">
+                <!-- <li>
+                    <img src="../imgs/001.jpg" alt="" onload="imgreload()">
+                </li> -->
+            </ul>
+            <ul id="photo2">
+                <!-- <li>
+                    <img src="../imgs/desk_005.jpg" alt="">
+                </li> -->
+            </ul>
+            <ul id="photo3">
+                <!-- <li>
+                    <img src="../imgs/photo10.jpg" alt="">
+                </li> -->
+            </ul>
+            <ul id="photo4">
+                <!-- <li>
+                    <img src="../imgs/photo13.jpeg" alt="" srcset="">
+                </li> -->
+            </ul>
+            <ul id="photo5">
+                <!-- <li>
+                    <img src="../imgs/photo14.jpg" alt="">
+                </li> -->
+            </ul>
+        </div>
     </div>
+
+    <script src="../上拉加载，下拉刷新/hzmscroll.js"></script>
     <script>
         let imgs = ['../imgs/001.jpg', '../imgs/desk_005.jpg', '../imgs/photo10.jpg',
             '../imgs/photo2.jpg', '../imgs/photo3.jpeg', '../imgs/photo4.jpg', '../imgs/photo5.jpeg', '../imgs/photo6.jpeg',
@@ -81,7 +92,41 @@
         ]
 
         let ulsLength = [0, 0, 0, 0, 0];
+        let key = 0;
+        let scroll = new HzmScroll('imgbody', {
+            upLoad: {
+                callback: upCallback
+            },
+            downRefrech: {
+                callback: downCallback
+            }
+        });
 
+        downCallback();
+
+        function downCallback() {
+            let addul = getMin(ulsLength);
+            let adddom = document.getElementById(`photo${addul+1}`);
+            let li = document.createElement('li');
+            let imgdom = new Image();
+            imgdom.src = imgs[parseInt(Math.random() * 22)]
+            li.appendChild(imgdom);
+            adddom.appendChild(li);
+            key++;
+            imgdom.onload = function() {
+                ulsLength[addul] = adddom.offsetHeight;
+                // 每一次加载15张图片
+                if (key <= 15) {
+                    downCallback();
+                } else {
+                    key = 0;
+                }
+            }
+        }
+
+        function upCallback() {
+            console.log(2);
+        }
 
         // 得到数组中最小值的下标
         function getMin(arr) {
@@ -94,123 +139,6 @@
                 }
             });
             return minIndex
-        }
-
-        // 防抖函数
-        let debance = function(fn, wait) {
-            let timer;
-            return function() {
-                if (timer) {
-                    clearTimeout(timer);
-                } else {
-                    timer = setTimeout(fn, wait);
-                }
-            }
-        }
-
-
-        let getScrollTop = function() {
-            var scrollTop = 0;
-            if (document.documentElement && document.documentElement.scrollTop) {
-                scrollTop = document.documentElement.scrollTop;
-            } else if (document.body) {
-                scrollTop = document.body.scrollTop;
-            }
-            return scrollTop;
-        }
-
-
-        // 获取当前可视范围的高度
-        let getClientHeight = function() {
-            var clientHeight = 0;
-            if (document.body.clientHeight && document.documentElement.clientHeight) {
-                clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight);
-            } else {
-                clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight);
-            }
-            return clientHeight;
-        }
-
-        // 获取文档完整高度
-        let getScrollHeight = function() {
-            if (document.body) {
-                return Math.max(document.body.scrollHeight, document.body.clientHeight);
-            } else {
-                return Math.max(document.documentElement.clientHeight, document.documentElement.scrollHeight);
-            }
-
-        }
-
-        // 获取滚动条是否到达滚动区底部
-        let getScrollBottom = function() {
-            return getScrollTop() + getClientHeight() === getScrollHeight() ? true : false
-        }
-
-
-        // 鼠标滚动时间监听函数
-        function scrollEventCallback() {
-            if (getScrollBottom()) {
-                let addul = getMin(ulsLength);
-                let adddom = null;
-                let img = parseInt(Math.random() * 22);
-                console.log(img);
-                switch (addul) {
-                    case 0:
-                        adddom = document.getElementById("photo1");
-                        break;
-                    case 1:
-                        adddom = document.getElementById("photo2");
-                        break;
-                    case 2:
-                        adddom = document.getElementById("photo3");
-                        break;
-                    case 3:
-                        adddom = document.getElementById("photo4");
-                        break;
-                    case 4:
-                        adddom = document.getElementById("photo5");
-                        break;
-                }
-            }
-        }
-
-        // 不知道为何 该函数监听不到了，所以今天只能使用定时器的方式添加图片，后序找到问题后解决的
-        window.addEventListener("scroll", debance(scrollEventCallback, 600));
-
-        setInterval(() => {
-            // console.log(ulsLength);
-            let addul = getMin(ulsLength);
-            console.log(addul);
-            let adddom = null;
-            let img = parseInt(Math.random() * 22);
-            img = imgs[img];
-
-            let li = document.createElement('li');
-            li.innerHTML = `<img src='${img}' onload='imgreload(${addul})'/>`;
-            switch (addul) {
-                case 0:
-                    adddom = document.getElementById("photo1");
-                    break;
-                case 1:
-                    adddom = document.getElementById("photo2");
-                    break;
-                case 2:
-                    adddom = document.getElementById("photo3");
-                    break;
-                case 3:
-                    adddom = document.getElementById("photo4");
-                    break;
-                case 4:
-                    adddom = document.getElementById("photo5");
-                    break;
-            }
-            adddom.appendChild(li);
-        }, 600);
-
-        // 当图片加载完成之后，要计算重新计算每一个ul的高度，以便得出下一个放置图片的位置
-        function imgreload(ulIndex) {
-            let domid = `photo${ulIndex+1}`;
-            ulsLength[ulIndex] = document.getElementById(domid).offsetHeight;
         }
     </script>
 </body>
