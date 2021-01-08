@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+    .imgbody {
+      position: absolute;
+      width: 1887px;
+      height: 602px;
+      background-color: rgb(3, 33, 50);
+      color: rgba(30, 165, 243, 0.5);
+      overflow: hidden;
+      line-height: 2px;
+      /* line-height: 6px; */
+      /* text-shadow: 0px 0px 0px rgba(30, 165, 243, 0.1); */
+    }
+    .imgbody1 {
+      position: absolute;
+      width: 1887px;
+      height: 602px;
+    }
+    .imgbody span {
+      display: inline-block;
+      width: 2px;
+      height: 2px;
+      background-color: rgba(30, 165, 243, 0.1);
+      border-radius: 1px;
+      margin-right: 3px;
+    }
+    #img1 {
+      position: absolute;
+      z-index: 10;
+      width: 500px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .imgbody1 .content {
+      position: absolute;
+      z-index: 100;
+      left: 50%;
+      top: 50%;
+      text-align: center;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(30, 165, 243, 0.5);
+      border-radius: 100%;
+    }
+    .content p {
+      background-color: rgba(30, 165, 243, 0.5);
+      padding: 16px;
+      color: white;
+      margin: 3px;
+      border-radius: 16px;
+    }
+    .daima {
+      position: absolute;
+      width: 9px;
+      font-size: 18px;
+      word-break: break-all;
+      background-image: -webkit-linear-gradient(
+        bottom,
+        rgba(30, 165, 243, 0.2),
+        rgba(30, 165, 243, 0.7)
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 12px;
+      z-index: 1;
+    }
+    #photo1,
+    #photo2,
+    #photo3,
+    #photo4,
+    #photo5,
+    #photo6,
+    #photo7,
+    #photo8,
+    #photo9,
+    #photo10,
+    #photo11,
+    #photo12,
+    #photo13,
+    #photo14,
+    #photo15,
+    #photo16 {
+      width: 103.92px;
+      height: 120px;
+      position: absolute;
+      overflow: hidden;
+      -webkit-clip-path: polygon(
+        50% 0,
+        100% 25%,
+        100% 75%,
+        50% 100%,
+        0 75%,
+        0 25%
+      );
+      clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
+      z-index: 1000;
+    }
+    .photoimg {
+      position: relative;
+      width: 104px;
+      z-index: 1000;
+      height: auto;
+    }
+    #photo1 {
+      top: 70px;
+      left: 355.8px;
+    }
+    #photo2 {
+      top: 70px;
+      left: 461.72px;
+    }
+    #photo3 {
+      top: 162px;
+      left: 90px;
+    }
+    #photo4 {
+      top: 162px;
+      left: 195.92px;
+    }
+    #photo5 {
+      top: 162px;
+      left: 301.84px;
+    }
+    #photo6 {
+      top: 162px;
+      left: 407.76px;
+    }
+    #photo7 {
+      top: 254px;
+      left: 143.96px;
+    }
+    #photo8 {
+      top: 254px;
+      left: 249.88px;
+    }
+    #photo9 {
+      top: 70px;
+      left: 1320.36px;
+    }
+    #photo10 {
+      top: 70px;
+      left: 1426.28px;
+    }
+
+    #photo11 {
+      top: 162px;
+      left: 1373.32px;
+    }
+    #photo12 {
+      top: 162px;
+      left: 1479.24px;
+    }
+    #photo13 {
+      top: 162px;
+      left: 1585.16px;
+    }
+    #photo14 {
+      top: 162px;
+      left: 1691.08px;
+    }
+    #photo15 {
+      top: 254px;
+      left: 1426.28px;
+    }
+    #photo16 {
+      top: 254px;
+      left: 1532.2px;
+    }
+  </style>
+  <body>
+    <div class="imgbody"></div>
+    <div id="photo1">
+      <img class="photoimg" src="./a1.png" alt="" />
+    </div>
+    <div id="photo2">
+      <img class="photoimg" src="./a2.png" alt="" />
+    </div>
+    <div id="photo3">
+      <img class="photoimg" src="./b1.png" alt="" />
+    </div>
+    <div id="photo4">
+      <img class="photoimg" src="./b2.png" alt="" />
+    </div>
+    <div id="photo5">
+      <img class="photoimg" src="./c1.png" alt="" />
+    </div>
+    <div id="photo6">
+      <img class="photoimg" src="./c2.png" alt="" />
+    </div>
+    <div id="photo7">
+      <img class="photoimg" src="./d1.png" alt="" />
+    </div>
+    <div id="photo8">
+      <img class="photoimg" src="./d2.png" alt="" />
+    </div>
+    <div id="photo9">
+      <img class="photoimg" src="./e1.png" alt="" />
+    </div>
+    <div id="photo10">
+      <img class="photoimg" src="./e2.png" alt="" />
+    </div>
+    <div id="photo11">
+      <img class="photoimg" src="./f1.png" alt="" />
+    </div>
+    <div id="photo12">
+      <img class="photoimg" src="./f2.png" alt="" />
+    </div>
+    <div id="photo13">
+      <img class="photoimg" src="./g1.png" alt="" />
+    </div>
+    <div id="photo14">
+      <img class="photoimg" src="./g2.png" alt="" />
+    </div>
+    <div id="photo15">
+      <img class="photoimg" src="./h1.png" alt="" />
+    </div>
+    <div id="photo16">
+      <img class="photoimg" src="./h2.png" alt="" />
+    </div>
+    <div class="imgbody1">
+      <img src="./1.png" id="img1" alt="" />
+      <div class="content">
+        <p></p>
+      </div>
+    </div>
+    <div id="daimas"></div>
+  </body>
+  <script>
+    let imgbody = document.getElementsByClassName("imgbody")[0];
+    let str = "<span></span>";
+    for (let i = 0; i < 29000; i++) {
+      str += "<span></span>";
+    }
+    imgbody.innerHTML = str;
+    let str2 = "";
+    for (let i = 0; i < 30; i++) {
+      let width = parseInt(Math.random() * 1882);
+      let height = parseInt(Math.random() * 600);
+      if (i < 10) {
+        str2 += `<div class="daima" style="top: ${height}px; left:  ${width}px; transform: scale(0.8);">Forensics</div>`;
+      } else if (i < 20) {
+        str2 += `<div class="daima" style="top: ${height}px; left:  ${width}px;transform: scale(0.7);">Forensics</div>`;
+      } else {
+        str2 += `<div class="daima" style="top: ${height}px; left:  ${width}px;">Forensics</div>`;
+      }
+    }
+    for (let i = 0; i < 10; i++) {
+      let width = parseInt(Math.random() * 1882);
+      let height = -parseInt(Math.random() * 100);
+      str2 += `<div class="daima" style="top: ${height}px; left:  ${width}px;">Forensics</div>`;
+    }
+    document.getElementById("daimas").innerHTML = str2;
+  </script>
+</html>
