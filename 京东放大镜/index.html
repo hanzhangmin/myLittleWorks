@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>纯js实现京东放大镜效果</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <section class="magnifer">
+      <!-- 缩略图 -->
+      <div class="abbre">
+        <img src="../imgs/photo2.jpg" alt="" />
+        <div class="mark"></div>
+      </div>
+      <!-- 详情图 -->
+      <div class="detail">
+        <img src="../imgs/photo2.jpg" alt="" />
+      </div>
+    </section>
+    <script>
+      let img = new Image();
+      img.src = "../imgs/photo2.jpg";
+      let multipleWidth, multipleHeight; //计算宽高的放大倍数
+      img.onload = function () {
+        multipleWidth = img.width / 380;
+        multipleHeight = img.height / 216;
+      };
+      let mark = document.querySelector(".mark");
+      let abbre = document.querySelector(".abbre");
+      let imgDom = document.querySelector(".detail img");
+      // console.log(imgDom);
+      mark.style.setProperty("--markShow", "none");
+      abbre.addEventListener("mouseenter", function (ev) {
+        mark.style.setProperty("--markShow", "block");
+        imgDom.style.setProperty("--markShow", "block");
+      });
+      abbre.addEventListener("mouseleave", function (ev) {
+        mark.style.setProperty("--markShow", "none");
+        imgDom.style.setProperty("--markShow", "none");
+      });
+      let abbretop = abbre.getBoundingClientRect().top;
+      let abbreleft = abbre.getBoundingClientRect().left;
+
+      window.addEventListener("resize", () => {
+        abbretop = abbre.getBoundingClientRect().top;
+        abbreleft = abbre.getBoundingClientRect().left;
+      });
+      abbre.addEventListener("mousemove", function (ev) {
+        let left = ev.clientX - abbreleft - 50;
+        let top = ev.clientY - abbretop - 50;
+        if (left < 0) {
+          left = 0;
+        }
+        if (left >= 280) {
+          left = 280;
+        }
+        if (top < 0) {
+          top = 0;
+        }
+        if (top >= 116) {
+          top = 116;
+        }
+        mark.style.setProperty("--moveLeft", left + "px");
+        mark.style.setProperty("--moveTop", top + "px");
+        imgDom.style.setProperty("--moveLeft", -left * multipleWidth + "px");
+        imgDom.style.setProperty("--moveTop", -top * multipleHeight + "px");
+      });
+    </script>
+  </body>
+</html>
