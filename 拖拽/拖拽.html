@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>拖拽</title>
+  </head>
+  <style>
+    .drag {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: palevioletred;
+      cursor: move;
+      z-index: 10;
+    }
+
+    #drapbox {
+      position: relative;
+      border: 4px solid #cccccc;
+      box-sizing: content-box;
+      width: 100%;
+      height: 600px;
+      background-color: #f1f1f1;
+    }
+    #drapbox::after {
+      content: "在此区间内，您可以随意拖动粉色盒子！";
+      position: absolute;
+      width: 100%;
+      height: 600px;
+      text-align: center;
+      line-height: 600px;
+      color: #cccccc;
+      z-index: 0;
+    }
+  </style>
+
+  <body>
+    <div id="drapbox">
+      <div id="drag" class="drag" draggable="true"></div>
+    </div>
+  </body>
+  <script>
+    let drag = document.getElementById("drag");
+    let drop = document.getElementById("drapbox");
+    // dragstart 在元素开始被拖动时触发
+    addDragEvent(drag);
+    function addDragEvent(drag) {
+      drag.addEventListener("dragstart", function (e) {
+        // console.log(e.type);
+      });
+      // 在拖动操作完成时触发
+      drag.addEventListener("dragend", function (e) {
+        // console.log(e.type);
+      });
+      // drag 在元素被拖动时触发
+      drag.addEventListener("drag", function (e) {
+        // console.log(e.type);
+      });
+    }
+
+    // 被拖动元素进入到释放区所占据得屏幕空间时触发
+    drop.addEventListener("dragenter", function (e) {
+      //   console.log(e.type);
+      this.style.border = "4px solid red";
+    });
+    //拖拽元素在空间内移动触发
+    drop.addEventListener("dragover", function (e) {
+      e.preventDefault();
+      console.log(e.type);
+    });
+    //拖拽元素离开空间内移动触发
+    drop.addEventListener("dragleave", function (e) {
+      console.log(e.type);
+      this.style.border = "4px solid black";
+    });
+    drop.addEventListener("drop", function (e) {
+      //   e.preventDefault();阻止了dragover与drop的默认事件才能触发drop
+      e.preventDefault();
+      //   console.log(e.type);
+      //   console.log(e);
+      let top = e.clientY - 50;
+      let left = e.clientX - 50;
+      if (left < 0) {
+        left = 0;
+      }
+      if (left > window.clientX - 50) {
+        left = window.clientX - 100;
+      }
+      if (top < 0) {
+        top = 0;
+      }
+      if (top > 500) {
+        top = 500;
+      }
+      drag.style.top = top + "px";
+      drag.style.left = left + "px";
+    });
+  </script>
+</html>

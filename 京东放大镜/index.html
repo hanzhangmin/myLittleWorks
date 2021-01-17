@@ -10,62 +10,28 @@
     <section class="magnifer">
       <!-- 缩略图 -->
       <div class="abbre">
-        <img src="../imgs/photo2.jpg" alt="" />
+        <img src="" alt="缩略图" />
         <div class="mark"></div>
+        <!-- 鼠标移动的蒙版，蒙版下的图片就是大图要显示的内容 -->
       </div>
       <!-- 详情图 -->
       <div class="detail">
-        <img src="../imgs/photo2.jpg" alt="" />
+        <img src="" alt="详情图" />
       </div>
     </section>
-    <script>
-      let img = new Image();
-      img.src = "../imgs/photo2.jpg";
-      let multipleWidth, multipleHeight; //计算宽高的放大倍数
-      img.onload = function () {
-        multipleWidth = img.width / 380;
-        multipleHeight = img.height / 216;
+    <script src="./index.js"></script>
+    <script type="module">
+      //配置项
+      let config = {
+        abbreWidth: 300, //缩略图宽度
+        abbreHeight: 200, //缩略图高度
+        markWidth: 100, //遮罩层宽度
+        markHeight: 100, //遮罩层高度
+        magnificationTimes: 5, //放大倍数
+        abbreSrc: "../imgs/photo2.jpg", //缩略图图片地址
+        detailSrc: "../imgs/photo2.jpg", //详细图图片地址
       };
-      let mark = document.querySelector(".mark");
-      let abbre = document.querySelector(".abbre");
-      let imgDom = document.querySelector(".detail img");
-      // console.log(imgDom);
-      mark.style.setProperty("--markShow", "none");
-      abbre.addEventListener("mouseenter", function (ev) {
-        mark.style.setProperty("--markShow", "block");
-        imgDom.style.setProperty("--markShow", "block");
-      });
-      abbre.addEventListener("mouseleave", function (ev) {
-        mark.style.setProperty("--markShow", "none");
-        imgDom.style.setProperty("--markShow", "none");
-      });
-      let abbretop = abbre.getBoundingClientRect().top;
-      let abbreleft = abbre.getBoundingClientRect().left;
-
-      window.addEventListener("resize", () => {
-        abbretop = abbre.getBoundingClientRect().top;
-        abbreleft = abbre.getBoundingClientRect().left;
-      });
-      abbre.addEventListener("mousemove", function (ev) {
-        let left = ev.clientX - abbreleft - 50;
-        let top = ev.clientY - abbretop - 50;
-        if (left < 0) {
-          left = 0;
-        }
-        if (left >= 280) {
-          left = 280;
-        }
-        if (top < 0) {
-          top = 0;
-        }
-        if (top >= 116) {
-          top = 116;
-        }
-        mark.style.setProperty("--moveLeft", left + "px");
-        mark.style.setProperty("--moveTop", top + "px");
-        imgDom.style.setProperty("--moveLeft", -left * multipleWidth + "px");
-        imgDom.style.setProperty("--moveTop", -top * multipleHeight + "px");
-      });
+      magnifer(config);
     </script>
   </body>
 </html>
