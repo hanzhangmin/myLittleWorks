@@ -1,0 +1,57 @@
+[
+  {
+    "name": "前端开发基础",
+    "open": true,
+    "children": [
+      {
+        "name": "HTML5核心知识",
+        "children": [
+          {
+            "name": "新增语义化标签"
+          },
+          {
+            "name": "表单元素新特性"
+          },
+          {
+            "name": "音视频处理"
+          },
+          {
+            "name": "canves和webGL"
+          },
+          {
+            "name": "新增JS中的API"
+          }
+        ]
+      },
+      {
+        "name": "CSS3核心知识",
+        "children": [
+          {
+            "name": "新增选择器"
+          },
+          {
+            "name": "CSS3 2D 转换"
+          },
+          {
+            "name": "CSS3 3D 转换"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "前端框架",
+    "open": true,
+    "children": [
+      {
+        "name": "REACT.JS"
+      },
+      {
+        "name": "VUE.JS"
+      },
+      {
+        "name": "ANGULAR.JS"
+      }
+    ]
+  }
+]
