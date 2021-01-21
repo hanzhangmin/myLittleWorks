@@ -4,6 +4,70 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>树形结构折叠菜单</title>
+    <link rel="stylesheet" href="./index.css" />
   </head>
-  <body></body>
+  <body>
+    <div class="hzm-tree">
+      <ul class="level level0">
+        <li>
+          <em class="icon"></em>
+          <a href="#" class="title">前端开发基础</a>
+          <ul class="level level1">
+            <li>
+              <em class="icon"></em>
+              <a href="#" class="title">html基础</a>
+            </li>
+            <li>
+              <em class="icon"></em>
+              <a href="#" class="title">css基础</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <em class="icon"></em>
+          <a href="#" class="title">前端开发进阶</a>
+          <ul class="level level1">
+            <li>
+              <em class="icon"></em>
+              <a href="#" class="title">html进阶</a>
+            </li>
+            <li>
+              <em class="icon"></em>
+              <a href="#" class="title">css进阶</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <script>
+      let level0 = document.querySelector(".hzm-tree .level0");
+      level0.addEventListener("click", function (ev) {
+        let target = ev.target;
+        let emDom, ulDom;
+        if (target.tagName == "A") {
+          ulDom = target.nextElementSibling;
+          emDom = target.previousElementSibling;
+        } else if (target.tagName == "EM") {
+          emDom = target;
+          ulDom = target.nextElementSibling.nextElementSibling;
+        } else {
+          emDom = target.children[0];
+          ulDom = target.children[2];
+        }
+        if (!ulDom) {
+          emDom.className = "";
+        } else {
+          if (emDom.classList.length == 1) {
+            emDom.className = "icon open";
+            ulDom.style.display = "block";
+            ulDom.style.transform = "scaleY(1)";
+          } else {
+            emDom.className = "icon";
+            ulDom.style.display = "none";
+            ulDom.style.transform = "scaleY(0)";
+          }
+        }
+      });
+    </script>
+  </body>
 </html>

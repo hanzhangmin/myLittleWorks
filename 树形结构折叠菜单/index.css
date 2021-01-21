@@ -1,0 +1,75 @@
+ul li {
+  list-style: none;
+}
+.hzm-tree .level {
+  position: relative;
+  font-size: 16px;
+}
+.hzm-tree .level li {
+  line-height: 1.5em;
+}
+.hzm-tree .level li a {
+  display: inline-block;
+  width: 100%;
+}
+.hzm-tree .level li a:hover {
+  color: red;
+}
+.hzm-tree .level .title {
+  color: #636363;
+  text-decoration: none;
+}
+.hzm-tree .level .icon::after {
+  position: absolute;
+  line-height: 1.5em;
+  margin-left: -1em;
+  content: "+";
+}
+.hzm-tree .level .open::after {
+  content: "-";
+}
+.hzm-tree .level1 {
+  display: none;
+  transform: scaleY(0);
+  transition: all 0.3s linear;
+}
+.hzm-tree .level2 {
+  display: none;
+  transform: scaleY(0);
+  transition: all 0.3s linear;
+}
+.hzm-tree .level3 {
+  display: none;
+  transform: scaleY(0);
+  transition: all 0.3s linear;
+}
+.hzm-tree .level4 {
+  display: none;
+  transform: scaleY(0);
+  transition: all 0.3s linear;
+}
+.hzm-tree .level5 {
+  display: none;
+  transform: scaleY(0);
+  transition: all 0.3s linear;
+}
+.hzm-tree .level6 {
+  display: none;
+  transform: scaleY(0);
+  transition: all 0.3s linear;
+}
+.hzm-tree .level7 {
+  display: none;
+  transform: scaleY(0);
+  transition: all 0.3s linear;
+}
+.hzm-tree .level8 {
+  display: none;
+  transform: scaleY(0);
+  transition: all 0.3s linear;
+}
+.hzm-tree .level9 {
+  display: none;
+  transform: scaleY(0);
+  transition: all 0.3s linear;
+}
