@@ -189,7 +189,7 @@
     }
   };
 
-  // 得到滚动条距离滚动区域顶部的距离
+  // 得到滚动条距离滚动区域顶部的距离，即上面隐藏区域的高度
   HzmScroll.prototype.getScrollTop = function () {
     var scrollPos;
     if (window.pageYOffset) {
@@ -234,6 +234,7 @@
   // 获取滚动条是否到达滚动区底部
   HzmScroll.prototype.getScrollBottom = function () {
     let _this = this;
+    //隐藏区域的高度+当前视口的高度===整个文档的高度来证明滚动条已经滚动到了最低端
     return _this.getScrollTop() + _this.getClientHeight() ===
       _this.getScrollHeight()
       ? true
