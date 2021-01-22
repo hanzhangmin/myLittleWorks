@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>图片懒加载</title>
-</head>
-<!-- 
+  </head>
+  <!-- 
 
   实现方案：
   1.在img元素时，自定义一个属性data-src，用于存放图片的地址
@@ -32,141 +31,151 @@
   * 使用getBoundingClientRect()获取元素大小和位置
   * IntersectionObserver自动观察元素是否在视口内
  -->
-<style>
+  <style>
     img {
-        height: 400px;
-        min-width: 200px;
-        width: auto;
+      height: 400px;
+      min-width: 200px;
+      width: auto;
     }
-</style>
+  </style>
 
-<body>
+  <body>
+    <img class="item" data-src="../imgs/手风琴2.jpeg" />
 
-    <img class="item" data-src="../imgs/手风琴2.jpeg">
+    <img class="item" data-src="../imgs/竖图1.jpg" />
 
+    <img class="item" data-src="../imgs/竖图3.jpg" />
 
-    <img class="item" data-src="../imgs/竖图1.jpg">
+    <img class="item" data-src="../imgs/竖图4.png" />
 
+    <img class="item" data-src="../imgs/竖图5.jpg" />
 
-    <img class="item" data-src="../imgs/竖图3.jpg">
+    <img class="item" data-src="../imgs/竖图6.jpg" />
 
+    <img class="item" data-src="../imgs/photo1.jpeg" />
 
-    <img class="item" data-src="../imgs/竖图4.png">
+    <img class="item" data-src="../imgs/photo2.jpg" />
 
+    <img class="item" data-src="../imgs/photo3.jpeg" />
 
-    <img class="item" data-src="../imgs/竖图5.jpg">
+    <img class="item" data-src="../imgs/photo4.jpg" />
 
+    <img class="item" data-src="../imgs/photo5.jpeg" />
 
-    <img class="item" data-src="../imgs/竖图6.jpg">
+    <img class="item" data-src="../imgs/photo6.jpeg" />
 
+    <img class="item" data-src="../imgs/photo7.jpg" />
 
-    <img class="item" data-src="../imgs/竖图6.jpg">
+    <img class="item" data-src="../imgs/photo8.png" />
 
+    <img class="item" data-src="../imgs/photo9.jpg" />
 
-    <img class="item" data-src="../imgs/竖图7.jpg">
+    <img class="item" data-src="../imgs/photo10.jpg" />
 
+    <img class="item" data-src="../imgs/photo11.jpg" />
 
-    <img class="item" data-src="../imgs/竖图9.jpeg">
+    <img class="item" data-src="../imgs/photo12.jpeg" />
 
+    <img class="item" data-src="../imgs/photo13.jpeg" />
 
-    <img class="item" data-src="../imgs/手风琴2.jpeg">
+    <img class="item" data-src="../imgs/photo14.jpg" />
 
+    <img class="item" data-src="../imgs/thumb-1920-430485.jpg" />
+  </body>
 
-    <img class="item" data-src="../imgs/竖图1.jpg">
-
-
-    <img class="item" data-src="../imgs/竖图3.jpg">
-
-
-    <img class="item" data-src="../imgs/竖图4.png">
-
-
-    <img class="item" data-src="../imgs/竖图5.jpg">
-
-
-    <img class="item" data-src="../imgs/竖图6.jpg">
-
-
-    <img class="item" data-src="../imgs/竖图6.jpg">
-
-
-    <img class="item" data-src="../imgs/竖图7.jpg">
-
-
-    <img class="item" data-src="../imgs/竖图9.jpeg">
-
-</body>
-
-<script>
+  <script>
+    //节流
     function throttle(func, wait, thearg) {
-        let old = 0;
-        return function() {
-
-            let now = new Date().valueOf();
-            if (now - old > wait) {
-                console.log(1);
-                old = now;
-                func(thearg);
-            }
+      let old = 0;
+      return function () {
+        let now = new Date().valueOf();
+        if (now - old > wait) {
+          console.log(1);
+          old = now;
+          func(thearg);
         }
+      };
     }
 
     var imgs = document.getElementsByTagName("img");
 
-    function gettop(element) {
+    //懒加载方法1通过得到一个元素的top（距离文档顶部的距离），只要top小于页面当前展示的长度，就将src赋值
+    function lazyLoad1(imgs) {
+      var vTop =
+        document.documentElement.clientHeight +
+        document.documentElement.scrollTop;
+      for (const img of imgs) {
+        if (gettop(img) < vTop && !img.src) {
+          img.src = img.dataset.src;
+        }
+      }
+      function gettop(element) {
         var top = element.offsetTop;
         while (element.offsetParent) {
-            element = element.offsetParent;
-            top += element.offsetTop
+          element = element.offsetParent;
+          top += element.offsetTop;
         }
-        return top
+        return top;
+      }
     }
 
-
-    function lazyLoad1(imgs) {
-        var vTop = document.documentElement.clientHeight + document.documentElement.scrollTop;
-        for (const img of imgs) {
-            if (gettop(img) < vTop && !img.src) {
-                img.src = img.dataset.src;
-            }
-        }
-    }
-
-    function isIn(element) {
-        var bound = element.getBoundingClientRect();
-        return bound.top <= window.innerHeight
-    }
-
-
+    //第二种懒加载的方法
+    // getBoundingClientRect用于获取某个元素相对于视窗的位置集合。集合中有top, right, bottom, left等属性。
+    //innerheight 返回窗口的文档显示区的高度。
+    //  innerwidth 返回窗口的文档显示区的宽度。
+    //只要元素相当于窗口的高度  小于等于 窗口文档显示区的高度 就给src属性赋值
     function lazyLoad2() {
-        var vTop = document.documentElement.clientHeight + document.documentElement.scrollTop;
-        for (const img of imgs) {
-            if (isIn(img) && !img.src) {
-                img.src = img.dataset.src;
-            }
+      var vTop =
+        document.documentElement.clientHeight +
+        document.documentElement.scrollTop;
+      for (const img of imgs) {
+        if (isIn(img) && !img.src) {
+          img.src = img.dataset.src;
         }
+      }
+      function isIn(element) {
+        var bound = element.getBoundingClientRect();
+        return bound.top <= window.innerHeight;
+      }
     }
 
-    var observer = new IntersectionObserver(
-        function(changes) {
-            changes.forEach(function(change) {
-                // console.log(change.intersectionRatio);
-                var container = change.target;
-                if (change.intersectionRatio > 0 && !container.src) {
-
-                    // console.log(container);
-                    container.src = container.dataset.src;
-                }
-            });
+    // 第三种懒加载的方法
+    /**
+     * IntersectionObserver(callback,option)构造函数接受两个参数，callback是可见性变化时的回调函数，option是配置对象（该参数可选）。
+     * 返回一个观察器实例 observer ，observer有observe方法，参数是要观察的dom对象
+     * 回调函数callback一般会触发两次。一次是目标元素刚刚进入视口（开始可见），另一次是完全离开视口（开始不可见）。
+     * 回调函数的参数changes是一个数组，每个成员都是一个IntersectionObserverEntry对象
+     * 举例来说，如果同时有两个被观察的对象的可见性发生变化，entries数组就会有两个成员。
+     * IntersectionObserverEntry 对象提供目标元素的信息，一共有六个属性。
+     * time：可见性发生变化的时间，是一个高精度时间戳，单位为毫秒
+     * target：被观察的目标元素，是一个 DOM 节点对象
+     * rootBounds：根元素的矩形区域的信息，getBoundingClientRect()方法的返回值，如果没有根元素（即直接相对于视口滚动），则返回null
+     * boundingClientRect：目标元素的矩形区域的信息
+     * intersectionRect：目标元素与视口（或根元素）的交叉区域的信息
+     * intersectionRatio：目标元素的可见比例，即intersectionRect占boundingClientRect的比例，完全可见时为1，完全不可见时小于等于0
+     * Option 对象可以设置的属性如下
+     * threshold  属性决定了什么时候触发回调函数。它是一个数组，每个成员都是一个门槛值，默认为[0]，即交叉比例（intersectionRatio）达到0时触发回调函数。
+     *用户可以自定义这个数组。比如，[0, 0.25, 0.5, 0.75, 1]就表示当目标元素 0%、25%、50%、75%、100% 可见时，会触发回调函数。
+     *root 属性，rootMargin 属性
+     *很多时候，目标元素不仅会随着窗口滚动，还会在容器里面滚动（比如在iframe窗口里滚动）。容器内滚动也会影响目标元素的可见性，参见本文开始时的那张示意图。
+     *IntersectionObserver API 支持容器内滚动。root属性指定目标元素所在的容器节点（即根元素）。注意，容器元素必须是目标元素的祖先节点。
+     *rootMargin属性，定义根元素的margin，用来扩展或缩小rootBounds这个矩形的大小，从而影响intersectionRect交叉区域的大小。
+     它使用CSS的定义方法，比如10px 20px 30px 40px，表示 top、right、bottom 和 left 四个方向的值。
+     */
+    var observer = new IntersectionObserver(function (changes) {
+      changes.forEach(function (change) {
+        var target = change.target;
+        if (change.intersectionRatio > 0 && !target.src) {
+          target.src = target.dataset.src;
         }
-    );
-    Array.from(imgs).forEach(img => {
-        observer.observe(img);
-    })
+      });
+    });
+    Array.from(imgs).forEach((img) => {
+      observer.observe(img);
+    });
 
-
+    // 对于使用scroll监听事件来说需要做节流来优化性能
     // lazyLoad1(imgs);
     // window.onscroll = throttle(lazyLoad1, 300, imgs);
-</script>
-
+  </script>
 </html>

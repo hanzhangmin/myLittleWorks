@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>树形结构折叠菜单</title>
     <link rel="stylesheet" href="./index.css" />
+    <!-- 在运行该页面的时候 
+      在根路径下的server文件夹子下运行
+      npm install 
+      node server.js
+      这样就能动态获取数据
+    -->
   </head>
   <body>
     <div class="hzm-tree">
-      <!-- <ul class="level level0">
+      <ul class="level level0">
         <li>
           <em class="icon"></em>
           <a href="#" class="title">前端开发基础</a>
@@ -37,7 +43,7 @@
             </li>
           </ul>
         </li>
-      </ul> -->
+      </ul>
     </div>
     <script>
       /**
@@ -53,17 +59,23 @@
         let baseUrl = "http://localhost:3000";
         xhr.open("GET", `${baseUrl}${url}`, true);
         xhr.onload = function () {
-          getTree(
+          // getTree(
+          //   JSON.parse(xhr.responseText),
+          //   0,
+          //   document.querySelector(".hzm-tree")
+          // );
+          document.querySelector(".hzm-tree").innerHTML = getTree1(
             JSON.parse(xhr.responseText),
-            0,
-            document.querySelector(".hzm-tree")
+            0
           );
         };
         xhr.send(null);
       }
+      //从服务器获取数据
       request("/data");
+      //将数据渲染到
+      //递归渲染但是 document.createElement 频繁的重绘回流性能不好
       function getTree(data, index, hzmTree) {
-        console.log(data);
         let ul = document.createElement("ul");
         ul.className = `level level${index}`;
         index++;
@@ -83,11 +95,21 @@
         }
         hzmTree.appendChild(ul);
       }
-      // async function getData() {
-      //   let data = await request("/data");
-      //   console.log(data);
-      // }
-      // getData();
+      //优化后的方法
+      function getTree1(data, index) {
+        let str = "";
+        str += `<ul class='level level${index}'>`;
+        index++;
+        for (let i = 0; i < data.length; i++) {
+          str += `<li><em class='icon'></em><a href='#' class='title'>${data[i].name}</a>`;
+          if (data[i].children instanceof Array) {
+            str += getTree1(data[i].children, index);
+          }
+          str += "</li>";
+        }
+        str += "</ul>";
+        return str;
+      }
       let hzmTree = document.querySelector(".hzm-tree");
       hzmTree.addEventListener("click", function (ev) {
         let target = ev.target;
