@@ -8,19 +8,58 @@
   </head>
 
   <body>
-    <div>
-      <div style="height: 1000px"></div>
+    <div class="container">
       <div class="img-box">
         <img class="lazy-img" data-src="../imgs/001.jpg" alt="" />
       </div>
       <div class="img-box">
         <img class="lazy-img" data-src="../imgs/desk_005.jpg" alt="" />
       </div>
-      <div style="height: 1000px"></div>
+      <div class="img-box">
+        <img class="lazy-img" data-src="../imgs/desk_005.jpg" alt="" />
+      </div>
     </div>
-    <script src="./img-lazy-load.js"></script>
+    <!-- <script src="./img-lazy-load.js"></script> -->
+    <script src="../LazyImage/dist/lazyImage.min.js"></script>
     <script>
-      let LazyImageOb = LazyImage();
+      let LazyImageOb = LazyImage({
+        context: document.getElementsByClassName("container")[0],
+      });
+      console.log(LazyImageOb);
+
+      setTimeout(() => {
+        let body = document.getElementsByClassName("container")[0];
+        let inner = `<div class="img-box">
+        <img class="lazy-img" data-src="../imgs/photo1.jpeg" alt="" />
+      </div>`;
+        inner += `<div class="img-box">
+        <img class="lazy-img" data-src="../imgs/photo3.jpeg" alt="" />
+      </div>`;
+        inner += `<div class="img-box">
+        <img class="lazy-img" data-src="../imgs/photo5.jpeg" alt="" />
+      </div>`;
+        inner += `<div class="img-box">
+        <img class="lazy-img" data-src="../imgs/photo6.jpeg" alt="" />
+      </div>`;
+        inner += `<div class="img-box">
+        <img class="lazy-img" data-src="../imgs/photo2.jpg" alt="" />
+      </div>`;
+        inner += `<div class="img-box">
+        <img class="lazy-img" data-src="../imgs/photo4.jpg" alt="" />
+      </div>`;
+        inner += `<div class="img-box">
+        <img class="lazy-img" data-src="../imgs/photo7.jpg" alt="" />
+      </div>`;
+        inner += `<div class="img-box">
+        <img class="lazy-img" data-src="../imgs/photo8.png" alt="" />
+      </div>`;
+        body.innerHTML = inner;
+
+        //当更新dom的时候要执行该函数
+        LazyImageOb.observe();
+        // LazyImageOb.
+      }, 1000);
+
       // setLazy({
       //   images: document.getElementsByClassName("lazy-img"), //图片元素
       //   threshold: [1], //出发回调的回调IntersectionObserverEntry对象的intersectionRatio的值
