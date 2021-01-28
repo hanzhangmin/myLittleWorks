@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图片延迟加载</title>
+    <link rel="stylesheet" href="./img-lazy-load.css" />
+  </head>
+
+  <body>
+    <div>
+      <div style="height: 1000px"></div>
+      <div class="img-box">
+        <img class="lazy-img" data-src="../imgs/001.jpg" alt="" />
+      </div>
+      <div class="img-box">
+        <img class="lazy-img" data-src="../imgs/desk_005.jpg" alt="" />
+      </div>
+      <div style="height: 1000px"></div>
+    </div>
+    <script src="./img-lazy-load.js"></script>
+    <script>
+      let LazyImageOb = LazyImage();
+      // setLazy({
+      //   images: document.getElementsByClassName("lazy-img"), //图片元素
+      //   threshold: [1], //出发回调的回调IntersectionObserverEntry对象的intersectionRatio的值
+      // });
+    </script>
+  </body>
+</html>
